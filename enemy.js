@@ -9,15 +9,15 @@
     "use strict";
 
     var Enemy = function () {
-	this._node = document.createElement("div");
+	this._setup();
+    };
+
+    Enemy.prototype = new window.GameObject();
+
+    Enemy.prototype._setup = function () {
+	window.GameObject.prototype._setup.call(this);
+
 	this._node.className = "enemy";
-	this._relativeNode = document.createElement("div");
-	this._relativeNode.className = "relative";
-	this._node.appendChild(this._relativeNode);
-	this._bodyNode = document.createElement("div");
-	this._bodyNode.className = "body";
-	this._relativeNode.appendChild(this._bodyNode);
-	this._velocity = {x: 0, y: 0};
 
 	var extraScale = Math.random();
 	var extraSpeed = 0.5 * Math.random() + 0.5 - 0.5 * extraScale;
@@ -41,30 +41,6 @@
 	this._bodyNode.style.borderRadius = "" + (this._size.width / 2) + "px";
     };
 
-    Enemy.prototype.attachTo = function (node) {
-	node.appendChild(this._node);
-    };
-
-    Enemy.prototype.detachFrom = function (node) {
-	node.removeChild(this._node);
-    };
-
-    Enemy.prototype.setPosition = function (position) {
-	this._position = position;
-	this._node.style.left = "" + Math.round(position.x) + "px";
-	this._node.style.top  = "" + Math.round(position.y) + "px";
-    };
-
-    Enemy.prototype.position = function (position) {
-	if (!this._position) {
-	    this._position = {
-		x: window.parseInt(this._node.style.left, 10),
-		y: window.parseInt(this._node.style.top,  10)
-	    };
-	}
-	return this._position;
-    };
-
     Enemy.prototype.loseHealth = function () {
 	this._health -= 10;
     };
@@ -81,13 +57,6 @@
 	this._rotateTowardsPosition(playerPosition);
 	this._updateVelocityTowardsPosition(playerPosition);
 	this._updatePosition();
-    };
-
-    Enemy.prototype._rotateTowardsPosition = function (position) {
-	var angle = Math.PI / 2 - Math.atan2(position.x - this.position().x,
-					     position.y - this.position().y);
-
-	this._node.style.transform = "rotateZ(" + angle + "rad)";
     };
 
     Enemy.prototype._updateVelocityTowardsPosition = function (position) {
@@ -117,24 +86,6 @@
 	    this._velocity.x *= this._maxSpeed / speed;
 	    this._velocity.y *= this._maxSpeed / speed;
 	}
-    };
-
-    Enemy.prototype.box = function () {
-	return {
-	    x:      this._position.x - this._size.width / 2,
-	    y:      this._position.y - this._size.height / 2,
-	    width:  this._size.width,
-	    height: this._size.height
-	};
-    };
-
-    Enemy.prototype._updatePosition = function () {
-	var position = this.position();
-
-	position.x += this._velocity.x;
-	position.y += this._velocity.y;
-
-	this.setPosition(position);
     };
 
     Enemy.prototype.drawBloodOntoCanvas = function (canvas, velocity) {

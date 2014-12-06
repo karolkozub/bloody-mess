@@ -9,34 +9,15 @@
     "use strict";
 
     var Crosshair = function () {
-	this._node = document.createElement("div");
+	this._setup();
+    };
+
+    Crosshair.prototype = new window.GameObject();
+
+    Crosshair.prototype._setup = function () {
+	window.GameObject.prototype._setup.call(this);
+
 	this._node.className = "crosshair";
-	this._relativeNode = document.createElement("div");
-	this._relativeNode.className = "relative";
-	this._node.appendChild(this._relativeNode);
-	this._bodyNode = document.createElement("div");
-	this._bodyNode.className = "body";
-	this._relativeNode.appendChild(this._bodyNode);
-    };
-
-    Crosshair.prototype.attachTo = function (node) {
-	node.appendChild(this._node);
-    };
-
-    Crosshair.prototype.setPosition = function (position) {
-	this._position = position;
-	this._node.style.left = "" + Math.round(position.x) + "px";
-	this._node.style.top  = "" + Math.round(position.y) + "px";
-    };
-
-    Crosshair.prototype.position = function (position) {
-	if (!this._position) {
-	    this._position = {
-		x: window.parseInt(this._node.style.left, 10),
-		y: window.parseInt(this._node.style.top,  10)
-	    };
-	}
-	return this._position;
     };
 
     Crosshair.prototype.setVisible = function (visible) {
