@@ -7,6 +7,7 @@ html, body {
     width: 100%;
     height: 100%;
     overflow: hidden;
+    cursor: none;
 }
 
 .relative {
@@ -44,4 +45,19 @@ html, body {
     width: 16px;
     height: 4px;
     background-color: #666;
+}
+
+.crosshair {
+    width: 1px;
+    height: 1px;
+    background-color: black;
+}
+
+.crosshair .body {
+    top: -5px;
+    left: -5px;
+    width: 9px;
+    height: 9px;
+    border: 1px solid black;
+    border-radius: 5px;
 }

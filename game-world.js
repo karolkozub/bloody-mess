@@ -15,6 +15,8 @@
 	this._player = new window.Player();
 	this._player.setPosition({x: 400, y: 400});
 	this._player.attachTo(this._relativeNode);
+	this._crosshair = new window.Crosshair();
+	this._crosshair.attachTo(this._relativeNode);
     };
 
     GameWorld.prototype.attachTo = function (node) {
@@ -24,6 +26,7 @@
     GameWorld.prototype.update = function (tick, input) {
 	this._player.handleInput(input);
 	this._player.update();
+	this._crosshair.handleInput(input);
     };
 
     window.GameWorld = GameWorld;

@@ -12,7 +12,8 @@
 	this._node = $("<div class='input-overlay'>");
 	this._mousePosition = {x: 0, y: 0};
 	this._keysPressed = {};
-	this._isFocused = true;
+	this._isWindowFocused = true;
+	this._isMouseOver = true;
     };
 
     InputController.prototype.attachTo = function (node) {
@@ -22,8 +23,16 @@
 	    self._mousePosition = {x: event.offsetX, y: event.offsetY};
 	});
 
+	this._node.mouseenter(function (event) {
+	    self._isMouseOver = true;
+	});
+
+	this._node.mouseleave(function (event) {
+	    self._isMouseOver = false;
+	});
+
 	node.keydown(function (event) {
-	    if (self._isFocused) {
+	    if (self._isWindowFocused) {
 		self._keysPressed[event.keyCode] = true;
 	    }
 	});
@@ -34,11 +43,11 @@
 
 	$(window).blur(function (event) {
 	    self._keysPressed = {};
-	    self._isFocused = false;
+	    self._isWindowFocused = false;
 	});
 
 	$(window).focus(function (event) {
-	    self._isFocused = true;
+	    self._isWindowFocused = true;
 	});
 
 	this._node.appendTo(node);
@@ -56,6 +65,7 @@
 	    isDownPressed:  this._keysPressed[ArrowDown]  || this._keysPressed[S],
 	    isLeftPressed:  this._keysPressed[ArrowLeft]  || this._keysPressed[A],
 	    isRightPressed: this._keysPressed[ArrowRight] || this._keysPressed[D],
+	    isMouseOver:    this._isMouseOver && this._isWindowFocused
 	};
     };
 
