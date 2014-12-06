@@ -22,6 +22,7 @@
 	this._enemies = [];
 	this._bullets = [];
 	this._deadEnemies = [];
+	this._numberOfKills = 0;
     };
 
     GameWorld.prototype.attachTo = function (node) {
@@ -32,7 +33,7 @@
 	node.appendChild(this._node);
     };
 
-    GameWorld.prototype.update = function (tick, input) {
+    GameWorld.prototype.update = function (input) {
 	var self = this;
 	this._crosshair.handleInput(input);
 	this._handleInput(input);
@@ -40,6 +41,10 @@
 	this._player.update();
 	this._enemies.forEach(function (enemy) {
 	    enemy.updateWithPlayerPosition(self._player.position());
+
+	    if (self._player.crossesBox(enemy.box())) {
+		self._player.loseHealth();
+	    }
 	});
 	this._bullets = this._bullets.filter(function (bullet) {
 	    bullet.update();
@@ -48,7 +53,7 @@
 	    var bulletIsOutsideWorld = bullet.position().x < 0 || bullet.position().x > self.size().width || bullet.position().y < 0 || bullet.position().y > self.size().height;
 
 	    self._enemies.forEach(function (enemy) {
-		if (!enemy.isDead() && bullet.didCrossBox(enemy.box())) {
+		if (bullet.didCrossBox(enemy.box())) {
 		    bulletHitEnemy = true;
 		    enemy.loseHealth();
 		}
@@ -64,6 +69,7 @@
 	this._enemies = this._enemies.filter(function (enemy) {
 	    if (enemy.isDead()) {
 		enemy.detachFrom(self._relativeNode);
+		self._numberOfKills += 1;
 		return false;
 	    } else {
 		return true;
@@ -115,6 +121,14 @@
 	    enemy.attachTo(this._relativeNode);
 	    this._enemies.push(enemy);
 	}
+    };
+
+    GameWorld.prototype.isGameOver = function () {
+	return this._player && this._player.isDead();
+    };
+
+    GameWorld.prototype.numberOfKills = function () {
+	return this._numberOfKills;
     };
 
     window.GameWorld = GameWorld;

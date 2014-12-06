@@ -68,6 +68,10 @@
 	node.appendChild(this._node);
     };
 
+    InputController.prototype.detachFrom = function (node) {
+	node.removeChild(this._node);
+    };
+
     InputController.prototype.input = function () {
 	var ArrowUp = 38,    W = 87;
 	var ArrowDown = 40,  S = 83;

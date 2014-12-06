@@ -23,11 +23,24 @@
  	this._velocity = {x: 0, y: 0};
 	this._size = {width: 20, height: 20};
 	this._maxSpeed = 3;
+	this._health = 100;
     };
 
     Player.prototype.attachTo = function (node) {
 	node.appendChild(this._node);
     };
+
+    Player.prototype.loseHealth = function () {
+	this._health -= 1;
+    };
+
+    Player.prototype.health = function () {
+	return this._health;
+    };
+
+    Player.prototype.isDead = function () {
+	return this._health <= 0;
+    }
 
     Player.prototype.setPosition = function (position) {
 	this._position = position;
@@ -88,6 +101,15 @@
 	    width:  this._size.width,
 	    height: this._size.height
 	};
+    };
+
+    Player.prototype.crossesBox = function (box) {
+	var playerBox = this.box();
+
+	return (playerBox.x + playerBox.width) > box.x &&
+	    (playerBox.y + playerBox.height) > box.y &&
+	    playerBox.x < (box.x + box.width) &&
+	    playerBox.y < (box.y + box.height);
     };
 
     Player.prototype.update = function () {
