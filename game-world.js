@@ -38,7 +38,7 @@
 	this._crosshair.handleInput(input);
 	this._handleInput(input);
 	this._player.handleInput(input);
-	this._player.update();
+	this._player.updateWithBoundingBox(this.box());
 	this._enemies.forEach(function (enemy) {
 	    enemy.updateWithPlayerPosition(self._player.position());
 
@@ -85,6 +85,10 @@
 	}
 	return this._size;
     };
+
+    GameWorld.prototype.box = function () {
+	return {x: 0, y: 0, width: this.size().width, height: this.size().height};
+    }
 
     GameWorld.prototype._handleInput = function (input) {
 	if (input.isMouseDown) {

@@ -119,11 +119,14 @@
 	    playerBox.y < (box.y + box.height);
     };
 
-    Player.prototype.update = function () {
+    Player.prototype.updateWithBoundingBox = function (box) {
 	var position = this.position();
 
 	position.x += this._velocity.x;
 	position.y += this._velocity.y;
+
+	position.x = Math.max(box.x, Math.min(box.x + box.width, position.x));
+	position.y = Math.max(box.y, Math.min(box.y + box.height, position.y));
 
 	this.setPosition(position);
     };
