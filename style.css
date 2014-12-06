@@ -76,6 +76,7 @@ html, body {
     width: 1px;
     height: 1px;
     background-color: black;
+    z-index: 2;
 }
 
 .crosshair .body {
@@ -85,4 +86,8 @@ html, body {
     height: 9px;
     border: 1px solid black;
     border-radius: 5px;
+}
+
+.input-overlay {
+    z-index: 3;
 }
