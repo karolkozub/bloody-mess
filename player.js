@@ -26,5 +26,21 @@
 	this._node.offset({left: position.x, top: position.y});
     };
 
+    Player.prototype.position = function (position) {
+	var offset = this._node.offset();
+	return {x: offset.left, y: offset.top};
+    };
+
+    Player.prototype.handleInput = function (input) {
+	this._rotateTowardsPosition(input.mousePosition);
+    };
+
+    Player.prototype._rotateTowardsPosition = function (position) {
+	var angle = Math.PI / 2 - Math.atan2(position.x - this.position().x,
+					     position.y - this.position().y);
+
+	this._node.css("transform", "rotateZ(" + angle + "rad)");
+    };
+
     window.Player = Player;
 }());

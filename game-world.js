@@ -22,6 +22,7 @@
     };
 
     GameWorld.prototype.update = function (tick, input) {
+	this._player.handleInput(input);
     };
 
     window.GameWorld = GameWorld;
