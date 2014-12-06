@@ -19,6 +19,7 @@
 	this._relativeNode.appendChild(this._bodyNode);
 	this._velocity = {x: 0, y: 0};
 	this._rotation = 0;
+	this._size = {width: 4, height: 4};
     };
 
     Bullet.prototype.attachTo = function (node) {
@@ -60,6 +61,37 @@
 	    };
 	}
 	return this._position;
+    };
+
+    Bullet.prototype.box = function () {
+	return {
+	    x:      this._position.x - this._size.width / 2,
+	    y:      this._position.y - this._size.height / 2,
+	    width:  this._size.width,
+	    height: this._size.height
+	};
+    };
+
+    Bullet.prototype.didCrossBox = function (box) {
+	var numberOfPoints = 10;
+	var dx = -this._velocity.x / numberOfPoints;
+	var dy = -this._velocity.y / numberOfPoints;
+
+	for (var i = 0; i < numberOfPoints; i++) {
+	    var point = {
+	 	x: this._position.x + dx,
+	 	y: this._position.y + dy,
+	    };
+
+	    if (point.x >= box.x &&
+		point.x < (box.x + box.width) &&
+		point.y >= box.y &&
+		point.y < (box.y + box.height)) {
+		return true;
+	    }
+	}
+
+	return false;
     };
 
     Bullet.prototype.update = function () {

@@ -21,6 +21,7 @@
 	this._gunNode.className = "gun";
 	this._relativeNode.appendChild(this._gunNode);
  	this._velocity = {x: 0, y: 0};
+	this._size = {width: 20, height: 20};
 	this._maxSpeed = 3;
     };
 
@@ -78,6 +79,15 @@
 	    this._velocity.x *= this._maxSpeed / speed;
 	    this._velocity.y *= this._maxSpeed / speed;
 	}
+    };
+
+    Player.prototype.box = function () {
+	return {
+	    x:      this._position.x - this._size.width / 2,
+	    y:      this._position.y - this._size.height / 2,
+	    width:  this._size.width,
+	    height: this._size.height
+	};
     };
 
     Player.prototype.update = function () {

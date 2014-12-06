@@ -36,18 +36,25 @@
     GameWorld.prototype.update = function (tick, input) {
 	var self = this;
 	this._crosshair.handleInput(input);
+	this._handleInput(input);
 	this._player.handleInput(input);
 	this._player.update();
-	this._handleInput(input);
 	this._enemies.forEach(function (enemy) {
 	    enemy.updateWithPlayerPosition(self._player.position());
 	});
 	this._bullets = this._bullets.filter(function (bullet) {
 	    bullet.update();
 
+	    var bulletHitEnemy = false;
 	    var bulletIsOutsideWorld = bullet.position().x < 0 || bullet.position().x > self._size().width || bullet.position().y < 0 || bullet.position().y > self._size().height;
 
-	    if (bulletIsOutsideWorld) {
+	    self._enemies.forEach(function (enemy) {
+		if (bullet.didCrossBox(enemy.box())) {
+		    bulletHitEnemy = true;
+		}
+	    });
+
+	    if (bulletHitEnemy || bulletIsOutsideWorld) {
 		bullet.detachFrom(self._relativeNode);
 		return false;
 	    } else {
@@ -68,7 +75,7 @@
 
     GameWorld.prototype._shootFromPositionToPosition = function (fromPosition, toPosition) {
 	var distance = {x: toPosition.x -  fromPosition.x, y: toPosition.y -  fromPosition.y};
-	var speed = 100 + Math.random() * 10;
+	var speed = 20 + Math.random() * 10;
 	var angle = Math.PI / 2 - Math.atan2(distance.x, distance.y) + (Math.random() - 0.5) * Math.PI / 100;
 
 	var bullet = new window.Bullet();

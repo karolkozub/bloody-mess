@@ -18,6 +18,7 @@
 	this._bodyNode.className = "body";
 	this._relativeNode.appendChild(this._bodyNode);
 	this._velocity = {x: 0, y: 0};
+	this._size = {width: 20, height: 20};
 	this._maxSpeed = 2;
     };
 
@@ -81,6 +82,15 @@
 	    this._velocity.x *= this._maxSpeed / speed;
 	    this._velocity.y *= this._maxSpeed / speed;
 	}
+    };
+
+    Enemy.prototype.box = function () {
+	return {
+	    x:      this._position.x - this._size.width / 2,
+	    y:      this._position.y - this._size.height / 2,
+	    width:  this._size.width,
+	    height: this._size.height
+	};
     };
 
     Enemy.prototype._updatePosition = function () {
