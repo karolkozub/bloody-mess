@@ -20,12 +20,6 @@
 	this._player.setPosition({x: 400, y: 400});
 	this._player.attachTo(this._relativeNode);
 	this._enemies = [];
-	for (var i = 0; i < 10; i++) {
-	    var enemy = new window.Enemy();
-	    enemy.setPosition({x: Math.random() * 1000, y: Math.random() * 1000});
-	    enemy.attachTo(this._relativeNode);
-	    this._enemies.push(enemy);
-	}
 	this._bullets = [];
 	this._deadEnemies = [];
     };
@@ -63,6 +57,7 @@
 		return true;
 	    }
 	});
+	this._addEnemies();
     };
 
     GameWorld.prototype._size = function () {
@@ -86,6 +81,25 @@
 	bullet.setRotation(angle);
 	bullet.attachTo(this._relativeNode);
 	this._bullets.push(bullet);
+    };
+
+    GameWorld.prototype._addEnemies = function () {
+	if (Math.random() < 0.05) {
+	    var enemy = new window.Enemy();
+	    var margin = 10;
+	    var x = -margin + Math.random() * (this._size().width  + 2 * margin);
+	    var y = -margin + Math.random() * (this._size().height + 2 * margin);
+
+	    if (Math.random() < 0.5) {
+		x = Math.random() < 0.5 ? -margin : (this._size().width  + margin);
+	    } else {
+	    	y = Math.random() < 0.5 ? -margin : (this._size().height + margin);
+	    }
+
+	    enemy.setPosition({x: x, y: y});
+	    enemy.attachTo(this._relativeNode);
+	    this._enemies.push(enemy);
+	}
     };
 
     window.GameWorld = GameWorld;
