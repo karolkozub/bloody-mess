@@ -1,5 +1,5 @@
 //
-//  player.js
+//  enemy.js
 //
 //  Created by Karol Kozub on 2014-12-06.
 //  Copyright (c) 2014 Karol Kozub. All rights reserved.
@@ -8,49 +8,53 @@
 (function () {
     "use strict";
 
-    var Player = function () {
-	this._node = $("<div class='player'>")
+    var Enemy = function () {
+	this._node = $("<div class='enemy'>")
 	this._relativeNode = $("<div class='relative'>");
 	this._relativeNode.appendTo(this._node);
 	this._bodyNode = $("<div class='body'>");
 	this._bodyNode.appendTo(this._relativeNode);
-	this._gunNode = $("<div class='gun'>");
-	this._gunNode.appendTo(this._relativeNode);
 	this._velocity = {x: 0, y: 0};
-	this._maxSpeed = 3;
+	this._maxSpeed = 2;
     };
 
-    Player.prototype.attachTo = function (node) {
+    Enemy.prototype.attachTo = function (node) {
 	this._node.appendTo(node);
     };
 
-    Player.prototype.setPosition = function (position) {
+    Enemy.prototype.setPosition = function (position) {
 	this._node.offset({left: position.x, top: position.y});
     };
 
-    Player.prototype.position = function (position) {
+    Enemy.prototype.position = function (position) {
 	var offset = this._node.offset();
 	return {x: offset.left, y: offset.top};
     };
 
-    Player.prototype.handleInput = function (input) {
-	this._rotateTowardsPosition(input.mousePosition);
-	this._updateVelocityWithInput(input);
+    Enemy.prototype.updateWithPlayerPosition = function (playerPosition) {
+	this._rotateTowardsPosition(playerPosition);
+	this._updateVelocityTowardsPosition(playerPosition);
+	this._updatePosition();
     };
 
-    Player.prototype._rotateTowardsPosition = function (position) {
+    Enemy.prototype._rotateTowardsPosition = function (position) {
 	var angle = Math.PI / 2 - Math.atan2(position.x - this.position().x,
 					     position.y - this.position().y);
 
 	this._node.css("transform", "rotateZ(" + angle + "rad)");
     };
 
-    Player.prototype._updateVelocityWithInput = function (input) {
+    Enemy.prototype._updateVelocityTowardsPosition = function (position) {
 	var speed = Math.sqrt(this._velocity.x * this._velocity.x + this._velocity.y * this._velocity.y);
 	var dimmingFactor = 0.8;
+	var distance = {
+	    x: position.x - this.position().x,
+	    y: position.y - this.position().y
+	}
+	var linearDistance = Math.sqrt(distance.x * distance.x + distance.y * distance.y);
 	var change = {
-	    x: (input.isRightPressed ? 1 : 0) - (input.isLeftPressed ? 1 : 0),
-	    y: (input.isDownPressed  ? 1 : 0) - (input.isUpPressed   ? 1 : 0)
+	    x: distance.x / linearDistance / 10,
+	    y: distance.y / linearDistance / 10
 	};
 
 	this._velocity.x += change.x;
@@ -69,7 +73,7 @@
 	}
     };
 
-    Player.prototype.update = function () {
+    Enemy.prototype._updatePosition = function () {
 	var position = this.position();
 
 	position.x += this._velocity.x;
@@ -78,5 +82,5 @@
 	this.setPosition(position);
     };
 
-    window.Player = Player;
+    window.Enemy = Enemy;
 }());
