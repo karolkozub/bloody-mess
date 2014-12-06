@@ -25,6 +25,10 @@
     };
 
     GameWorld.prototype.attachTo = function (node) {
+	var self = this;
+	window.addEventListener("resize", function () {
+	    delete self._size;
+	});
 	node.appendChild(this._node);
     };
 
@@ -41,7 +45,7 @@
 	    bullet.update();
 
 	    var bulletHitEnemy = false;
-	    var bulletIsOutsideWorld = bullet.position().x < 0 || bullet.position().x > self._size().width || bullet.position().y < 0 || bullet.position().y > self._size().height;
+	    var bulletIsOutsideWorld = bullet.position().x < 0 || bullet.position().x > self.size().width || bullet.position().y < 0 || bullet.position().y > self.size().height;
 
 	    self._enemies.forEach(function (enemy) {
 		if (!enemy.isDead() && bullet.didCrossBox(enemy.box())) {
@@ -60,8 +64,11 @@
 	this._addEnemies();
     };
 
-    GameWorld.prototype._size = function () {
-	return {width: this._node.clientWidth, height: this._node.clientHeight};
+    GameWorld.prototype.size = function () {
+	if (!this._size) {
+	    this._size = {width: this._node.clientWidth, height: this._node.clientHeight};
+	}
+	return this._size;
     };
 
     GameWorld.prototype._handleInput = function (input) {
@@ -87,13 +94,13 @@
 	if (Math.random() < 0.05) {
 	    var enemy = new window.Enemy();
 	    var margin = 10;
-	    var x = -margin + Math.random() * (this._size().width  + 2 * margin);
-	    var y = -margin + Math.random() * (this._size().height + 2 * margin);
+	    var x = -margin + Math.random() * (this.size().width  + 2 * margin);
+	    var y = -margin + Math.random() * (this.size().height + 2 * margin);
 
 	    if (Math.random() < 0.5) {
-		x = Math.random() < 0.5 ? -margin : (this._size().width  + margin);
+		x = Math.random() < 0.5 ? -margin : (this.size().width  + margin);
 	    } else {
-	    	y = Math.random() < 0.5 ? -margin : (this._size().height + margin);
+	    	y = Math.random() < 0.5 ? -margin : (this.size().height + margin);
 	    }
 
 	    enemy.setPosition({x: x, y: y});
