@@ -25,12 +25,19 @@
     };
 
     Player.prototype.setPosition = function (position) {
-	this._node.offset({left: position.x, top: position.y});
+	this._position = position;
+	this._node[0].style.left = "" + position.x + "px";
+	this._node[0].style.top  = "" + position.y + "px";
     };
 
     Player.prototype.position = function (position) {
-	var offset = this._node.offset();
-	return {x: offset.left, y: offset.top};
+	if (!this._position) {
+	    this._position = {
+		x: window.parseInt(this._node[0].style.left, 10),
+		y: window.parseInt(this._node[0].style.top,  10)
+	    };
+	}
+	return this._position;
     };
 
     Player.prototype.handleInput = function (input) {
