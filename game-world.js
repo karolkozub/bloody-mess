@@ -62,6 +62,7 @@
 		if (bullet.didCrossBox(enemy.box())) {
 		    bulletHitEnemy = true;
 		    enemy.loseHealth();
+		    enemy.drawBloodOntoCanvas(self._backgroundCanvas, bullet.velocity());
 		}
 	    });
 
@@ -75,7 +76,7 @@
 	this._enemies = this._enemies.filter(function (enemy) {
 	    if (enemy.isDead()) {
 		enemy.detachFrom(self._relativeNode);
-		enemy.drawOntoCanvas(self._backgroundCanvas);
+		enemy.drawDeadBodyOntoCanvas(self._backgroundCanvas);
 		self._numberOfKills += 1;
 		return false;
 	    } else {
