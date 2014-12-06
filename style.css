@@ -30,6 +30,10 @@ html, body {
     padding: 0;
 }
 
+.player {
+    z-index: 1;
+}
+
 .player .body {
     left: -10px;
     top: -10px;
@@ -45,6 +49,10 @@ html, body {
     width: 16px;
     height: 4px;
     background-color: #666;
+}
+
+.dead.enemy {
+    z-index: -1;
 }
 
 .enemy .body {

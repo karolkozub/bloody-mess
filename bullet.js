@@ -73,7 +73,7 @@
     };
 
     Bullet.prototype.didCrossBox = function (box) {
-	var numberOfPoints = 10;
+	var numberOfPoints = 4;
 	var dx = -this._velocity.x / numberOfPoints;
 	var dy = -this._velocity.y / numberOfPoints;
 

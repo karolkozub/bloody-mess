@@ -20,6 +20,7 @@
 	this._velocity = {x: 0, y: 0};
 	this._size = {width: 20, height: 20};
 	this._maxSpeed = 2;
+	this._health = 100;
     };
 
     Enemy.prototype.attachTo = function (node) {
@@ -42,10 +43,26 @@
 	return this._position;
     };
 
+    Enemy.prototype.loseHealth = function () {
+	this._health -= 10;
+    };
+
+    Enemy.prototype.health = function () {
+	return this._health;
+    };
+
+    Enemy.prototype.isDead = function () {
+	return this._health <= 0;
+    }
+
     Enemy.prototype.updateWithPlayerPosition = function (playerPosition) {
-	this._rotateTowardsPosition(playerPosition);
-	this._updateVelocityTowardsPosition(playerPosition);
-	this._updatePosition();
+	if (this.isDead()) {
+	    this._updateDeath();
+	} else {
+	    this._rotateTowardsPosition(playerPosition);
+	    this._updateVelocityTowardsPosition(playerPosition);
+	    this._updatePosition();
+	}
     };
 
     Enemy.prototype._rotateTowardsPosition = function (position) {
@@ -101,6 +118,18 @@
 
 	this.setPosition(position);
     };
+
+    Enemy.prototype._updateDeath = function () {
+	if (this._deathProgress >= 1) {
+	    return;
+	} else if (!this._deathProgress) {
+	    this._deathProgress = 0;
+	    this._node.className = "dead enemy";
+	}
+
+	this._deathProgress += 0.1;
+	this._node.style.opacity = 1 - 0.5 * this._deathProgress;
+    }
 
     window.Enemy = Enemy;
 }());

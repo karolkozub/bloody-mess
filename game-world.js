@@ -27,6 +27,7 @@
 	    this._enemies.push(enemy);
 	}
 	this._bullets = [];
+	this._deadEnemies = [];
     };
 
     GameWorld.prototype.attachTo = function (node) {
@@ -49,8 +50,9 @@
 	    var bulletIsOutsideWorld = bullet.position().x < 0 || bullet.position().x > self._size().width || bullet.position().y < 0 || bullet.position().y > self._size().height;
 
 	    self._enemies.forEach(function (enemy) {
-		if (bullet.didCrossBox(enemy.box())) {
+		if (!enemy.isDead() && bullet.didCrossBox(enemy.box())) {
 		    bulletHitEnemy = true;
+		    enemy.loseHealth();
 		}
 	    });
 
