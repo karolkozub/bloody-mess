@@ -10,6 +10,7 @@
 
     var Game = function () {
 	this._world = new window.GameWorld();
+	this._statusDisplay = new window.StatusDisplay();
 	this._inputController = new window.InputController();
 	this._gameoverScreen = new window.GameoverScreen();
 	this._loop = new window.GameLoop();
@@ -18,6 +19,7 @@
     Game.prototype.attachTo = function (node) {
 	this._node = node;
 	this._world.attachTo(node);
+	this._statusDisplay.attachTo(node);
 	this._inputController.attachTo(node);
 	this._gameoverScreen.attachTo(node);
     };
@@ -29,6 +31,7 @@
 
     Game.prototype.update = function () {
 	this._world.update(this._inputController.input());
+	this._statusDisplay.updateWithGameStatistics(this._statistics());
 
 	if (this._world.isGameOver()) {
 	    this._loop.stop();
@@ -38,11 +41,13 @@
     };
 
     Game.prototype._statistics = function () {
+	var health = this._world.playerHealth();
 	var kills = this._world.numberOfKills();
 	var time = this._loop.runTime();
 	var points = kills + Math.floor(time / 1000);
 
 	return {
+	    health: health,
 	    kills: kills,
 	    time: time,
 	    points: points

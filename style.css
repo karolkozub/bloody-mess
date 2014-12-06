@@ -122,7 +122,7 @@ html, body {
     margin: 40px 170px;
 }
 
-.gameover-screen .box table td.right-aligned {
+.gameover-screen .box table t.right-aligned {
     text-align: right;
 }
 
@@ -132,4 +132,28 @@ html, body {
     font-size: 20px;
     display: block;
     margin: 20px auto;
+}
+
+.status-display .health {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
+
+.status-display .kills {
+    position: absolute;
+    left: 10px;
+    top: 30px;
+}
+
+.status-display .time {
+    position: absolute;
+    left: 10px;
+    top: 50px;
+}
+
+.status-display .points {
+    position: absolute;
+    left: 10px;
+    top: 70px;
 }

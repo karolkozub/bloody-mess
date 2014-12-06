@@ -143,5 +143,9 @@
 	return this._numberOfKills;
     };
 
+    GameWorld.prototype.playerHealth = function () {
+	return this._player.health();
+    };
+
     window.GameWorld = GameWorld;
 }());
