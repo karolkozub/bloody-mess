@@ -61,6 +61,14 @@
 		return true;
 	    }
 	});
+	this._enemies = this._enemies.filter(function (enemy) {
+	    if (enemy.isDead()) {
+		enemy.detachFrom(self._relativeNode);
+		return false;
+	    } else {
+		return true;
+	    }
+	});
 	this._addEnemies();
     };
 

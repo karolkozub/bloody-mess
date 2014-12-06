@@ -27,6 +27,10 @@
 	node.appendChild(this._node);
     };
 
+    Enemy.prototype.detachFrom = function (node) {
+	node.removeChild(this._node);
+    };
+
     Enemy.prototype.setPosition = function (position) {
 	this._position = position;
 	this._node.style.left = "" + position.x + "px";
@@ -56,13 +60,9 @@
     }
 
     Enemy.prototype.updateWithPlayerPosition = function (playerPosition) {
-	if (this.isDead()) {
-	    this._updateDeath();
-	} else {
-	    this._rotateTowardsPosition(playerPosition);
-	    this._updateVelocityTowardsPosition(playerPosition);
-	    this._updatePosition();
-	}
+	this._rotateTowardsPosition(playerPosition);
+	this._updateVelocityTowardsPosition(playerPosition);
+	this._updatePosition();
     };
 
     Enemy.prototype._rotateTowardsPosition = function (position) {
@@ -118,18 +118,6 @@
 
 	this.setPosition(position);
     };
-
-    Enemy.prototype._updateDeath = function () {
-	if (this._deathProgress >= 1) {
-	    return;
-	} else if (!this._deathProgress) {
-	    this._deathProgress = 0;
-	    this._node.className = "dead enemy";
-	}
-
-	this._deathProgress += 0.1;
-	this._node.style.opacity = 1 - 0.5 * this._deathProgress;
-    }
 
     window.Enemy = Enemy;
 }());
