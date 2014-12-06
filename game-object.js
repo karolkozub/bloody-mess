@@ -81,7 +81,7 @@
 	var angle = Math.PI / 2 - Math.atan2(position.x - this.position().x,
 					     position.y - this.position().y);
 
-	this._node.style.transform = "rotateZ(" + angle + "rad)";
+	this.setRotation(angle);
     };
 
     GameObject.prototype._updatePosition = function () {

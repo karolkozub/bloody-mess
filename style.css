@@ -157,3 +157,10 @@ html, body {
     left: 10px;
     top: 70px;
 }
+
+.spider.enemy .leg {
+    top: -1px;
+    height: 2px;
+    background-color: black;
+    z-index: -1;
+}
