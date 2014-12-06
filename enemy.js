@@ -28,8 +28,8 @@
 	this._maxSpeed = 0.5 + 3 * extraSpeed;
 	this._health = 50 + 100 * extraHealth;
 
-	var red = Math.floor(255 * (0.5 + 0.25 * extraHealth));
-	var green = Math.floor(255 * (0.25 + 0.25 * extraScale));
+	var red = Math.floor(255 * (0.25 + 0.25 * extraHealth));
+	var green = Math.floor(255 * (0.5 + 0.25 * extraScale));
 	var blue = Math.floor(255 * (0.25 + 0.25 * extraSpeed));
 
 	this._color = "rgb(" + red + ", " + green + ", " + blue + ")";

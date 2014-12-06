@@ -57,9 +57,9 @@ html, body {
 .enemy .body {
     left: -10px;
     top: -10px;
-    width: 20px;
-    height: 20px;
-    background-color: #A44;
+    width: 18px;
+    height: 18px;
+    border: 1px solid #444;
     border-radius: 10px;
 }
 
