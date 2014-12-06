@@ -63,8 +63,8 @@
 	}
 	var linearDistance = Math.sqrt(distance.x * distance.x + distance.y * distance.y);
 	var change = {
-	    x: distance.x / linearDistance / 10,
-	    y: distance.y / linearDistance / 10
+	    x: distance.x / linearDistance / 20 + (Math.random() - 0.5) / 2,
+	    y: distance.y / linearDistance / 20 + (Math.random() - 0.5) / 2
 	};
 
 	this._velocity.x += change.x;
