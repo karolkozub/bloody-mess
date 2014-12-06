@@ -24,7 +24,7 @@
 	var extraHealth = Math.random();
 
 	this._scale = 1 + extraScale;
-	this._size = {width: 20 * this._scale, height: 20 * this._scale};
+	this._size = {width: Math.round(20 * this._scale), height: Math.round(20 * this._scale)};
 	this._maxSpeed = 0.5 + 3 * extraSpeed;
 	this._health = 50 + 100 * extraHealth;
 
@@ -34,7 +34,11 @@
 
 	this._color = "rgb(" + red + ", " + green + ", " + blue + ")";
 	this._bodyNode.style.backgroundColor = this._color;
-	this._bodyNode.style.transform = "scale(" + this._scale + ")";
+	this._bodyNode.style.left = "" + (-this._size.width / 2) + "px";
+	this._bodyNode.style.top = "" + (-this._size.height / 2) + "px";
+	this._bodyNode.style.width = "" + this._size.width + "px";
+	this._bodyNode.style.height = "" + this._size.height + "px";
+	this._bodyNode.style.borderRadius = "" + (this._size.width / 2) + "px";
     };
 
     Enemy.prototype.attachTo = function (node) {
@@ -47,8 +51,8 @@
 
     Enemy.prototype.setPosition = function (position) {
 	this._position = position;
-	this._node.style.left = "" + position.x + "px";
-	this._node.style.top  = "" + position.y + "px";
+	this._node.style.left = "" + Math.round(position.x) + "px";
+	this._node.style.top  = "" + Math.round(position.y) + "px";
     };
 
     Enemy.prototype.position = function (position) {

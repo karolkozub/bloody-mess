@@ -51,8 +51,8 @@
 
     Player.prototype.setPosition = function (position) {
 	this._position = position;
-	this._node.style.left = "" + position.x + "px";
-	this._node.style.top  = "" + position.y + "px";
+	this._node.style.left = "" + Math.round(position.x) + "px";
+	this._node.style.top  = "" + Math.round(position.y) + "px";
     };
 
     Player.prototype.position = function (position) {
