@@ -29,10 +29,11 @@
 	this._health = 50 + 100 * extraHealth;
 
 	var red = Math.floor(255 * (0.5 + 0.25 * extraHealth));
-	var green = Math.floor(255 * (0.5 + 0.25 * extraScale));
-	var blue = Math.floor(255 * (0.5 + 0.25 * extraSpeed));
+	var green = Math.floor(255 * (0.25 + 0.25 * extraScale));
+	var blue = Math.floor(255 * (0.25 + 0.25 * extraSpeed));
 
-	this._bodyNode.style.backgroundColor = "rgb(" + red + ", " + green + ", " + blue + ")";
+	this._color = "rgb(" + red + ", " + green + ", " + blue + ")";
+	this._bodyNode.style.backgroundColor = this._color;
 	this._bodyNode.style.transform = "scale(" + this._scale + ")";
     };
 
@@ -130,6 +131,24 @@
 	position.y += this._velocity.y;
 
 	this.setPosition(position);
+    };
+
+    Enemy.prototype.drawOntoCanvas = function (canvas) {
+	var context = canvas.getContext("2d");
+	var position = this.position();
+	var radius = this._size.width / 2;
+	var color = this._color;
+
+	context.save();
+	context.fillStyle = color;
+	context.globalAlpha = 0.25;
+
+	context.beginPath();
+	context.arc(position.x, position.y, radius, 0, 2 * Math.PI, true);
+	context.closePath();
+	context.fill();
+
+	context.restore();
     };
 
     window.Enemy = Enemy;

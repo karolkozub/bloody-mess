@@ -14,6 +14,9 @@
 	this._relativeNode = document.createElement("div");
 	this._relativeNode.className = "relative";
 	this._node.appendChild(this._relativeNode);
+	this._backgroundCanvas = document.createElement("canvas");
+	this._backgroundCanvas.className = "background";
+	this._relativeNode.appendChild(this._backgroundCanvas);
 	this._crosshair = new window.Crosshair();
 	this._crosshair.attachTo(this._relativeNode);
 	this._player = new window.Player();
@@ -31,6 +34,8 @@
 	});
 	node.appendChild(this._node);
 	this._player.setPosition({x: this.size().width / 2, y: this.size().height / 2});
+	this._backgroundCanvas.width = this.size().width;
+	this._backgroundCanvas.height = this.size().height;
     };
 
     GameWorld.prototype.update = function (input) {
@@ -70,6 +75,7 @@
 	this._enemies = this._enemies.filter(function (enemy) {
 	    if (enemy.isDead()) {
 		enemy.detachFrom(self._relativeNode);
+		enemy.drawOntoCanvas(self._backgroundCanvas);
 		self._numberOfKills += 1;
 		return false;
 	    } else {
