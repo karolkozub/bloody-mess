@@ -9,30 +9,33 @@
     "use strict";
 
     var Enemy = function () {
-	this._node = $("<div class='enemy'>")
-	this._relativeNode = $("<div class='relative'>");
-	this._relativeNode.appendTo(this._node);
-	this._bodyNode = $("<div class='body'>");
-	this._bodyNode.appendTo(this._relativeNode);
+	this._node = document.createElement("div");
+	this._node.className = "enemy";
+	this._relativeNode = document.createElement("div");
+	this._relativeNode.className = "relative";
+	this._node.appendChild(this._relativeNode);
+	this._bodyNode = document.createElement("div");
+	this._bodyNode.className = "body";
+	this._relativeNode.appendChild(this._bodyNode);
 	this._velocity = {x: 0, y: 0};
 	this._maxSpeed = 2;
     };
 
     Enemy.prototype.attachTo = function (node) {
-	this._node.appendTo(node);
+	node.appendChild(this._node);
     };
 
     Enemy.prototype.setPosition = function (position) {
 	this._position = position;
-	this._node[0].style.left = "" + position.x + "px";
-	this._node[0].style.top  = "" + position.y + "px";
+	this._node.style.left = "" + position.x + "px";
+	this._node.style.top  = "" + position.y + "px";
     };
 
     Enemy.prototype.position = function (position) {
 	if (!this._position) {
 	    this._position = {
-		x: window.parseInt(this._node[0].style.left, 10),
-		y: window.parseInt(this._node[0].style.top,  10)
+		x: window.parseInt(this._node.style.left, 10),
+		y: window.parseInt(this._node.style.top,  10)
 	    };
 	}
 	return this._position;
@@ -48,7 +51,7 @@
 	var angle = Math.PI / 2 - Math.atan2(position.x - this.position().x,
 					     position.y - this.position().y);
 
-	this._node.css("transform", "rotateZ(" + angle + "rad)");
+	this._node.style.transform = "rotateZ(" + angle + "rad)";
     };
 
     Enemy.prototype._updateVelocityTowardsPosition = function (position) {

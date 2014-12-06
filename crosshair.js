@@ -9,39 +9,38 @@
     "use strict";
 
     var Crosshair = function () {
-	this._node = $("<div class='crosshair'>")
-	this._relativeNode = $("<div class='relative'>");
-	this._relativeNode.appendTo(this._node);
-	this._bodyNode = $("<div class='body'>");
-	this._bodyNode.appendTo(this._relativeNode);
+	this._node = document.createElement("div");
+	this._node.className = "crosshair";
+	this._relativeNode = document.createElement("div");
+	this._relativeNode.className = "relative";
+	this._node.appendChild(this._relativeNode);
+	this._bodyNode = document.createElement("div");
+	this._bodyNode.className = "body";
+	this._relativeNode.appendChild(this._bodyNode);
     };
 
     Crosshair.prototype.attachTo = function (node) {
-	this._node.appendTo(node);
+	node.appendChild(this._node);
     };
 
     Crosshair.prototype.setPosition = function (position) {
 	this._position = position;
-	this._node[0].style.left = "" + position.x + "px";
-	this._node[0].style.top  = "" + position.y + "px";
+	this._node.style.left = "" + position.x + "px";
+	this._node.style.top  = "" + position.y + "px";
     };
 
     Crosshair.prototype.position = function (position) {
 	if (!this._position) {
 	    this._position = {
-		x: window.parseInt(this._node[0].style.left, 10),
-		y: window.parseInt(this._node[0].style.top,  10)
+		x: window.parseInt(this._node.style.left, 10),
+		y: window.parseInt(this._node.style.top,  10)
 	    };
 	}
 	return this._position;
     };
 
     Crosshair.prototype.setVisible = function (visible) {
-	if (visible) {
-	    this._node.show();
-	} else {
-	    this._node.hide();
-	}
+	this._node.style.display = visible ? "" : "none";
     };
 
     Crosshair.prototype.handleInput = function (input) {

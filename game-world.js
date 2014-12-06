@@ -9,9 +9,11 @@
     "use strict";
 
     var GameWorld = function () {
-	this._node = $("<div class='game-world'>");
-	this._relativeNode = $("<div class='relative'>");
-	this._relativeNode.appendTo(this._node);
+	this._node = document.createElement("div");
+	this._node.className = "game-world";
+	this._relativeNode = document.createElement("div");
+	this._relativeNode.className = "relative";
+	this._node.appendChild(this._relativeNode);
 	this._crosshair = new window.Crosshair();
 	this._crosshair.attachTo(this._relativeNode);
 	this._player = new window.Player();
@@ -27,7 +29,7 @@
     };
 
     GameWorld.prototype.attachTo = function (node) {
-	this._node.appendTo(node);
+	node.appendChild(this._node);
     };
 
     GameWorld.prototype.update = function (tick, input) {

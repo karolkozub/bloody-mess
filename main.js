@@ -8,10 +8,10 @@
 (function () {
     "use strict";
 
-    $("document").ready(function () {
+    document.addEventListener('DOMContentLoaded', function(){
 	var game = new window.Game();
 
-	game.attachTo($("body"));
+	game.attachTo(document.body);
 	game.start();
     });
 }());

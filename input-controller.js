@@ -9,7 +9,8 @@
     "use strict";
 
     var InputController = function () {
-	this._node = $("<div class='input-overlay'>");
+	this._node = document.createElement("div");
+	this._node.className = "input-overlay";
 	this._mousePosition = {x: 0, y: 0};
 	this._keysPressed = {};
 	this._isWindowFocused = true;
@@ -19,38 +20,38 @@
     InputController.prototype.attachTo = function (node) {
 	var self = this;
 
-	this._node.mousemove(function (event) {
+	this._node.addEventListener("mousemove", function (event) {
 	    self._mousePosition = {x: event.offsetX, y: event.offsetY};
 	});
 
-	this._node.mouseenter(function (event) {
+	this._node.addEventListener("mouseenter", function (event) {
 	    self._isMouseOver = true;
 	});
 
-	this._node.mouseleave(function (event) {
+	this._node.addEventListener("mouseleave", function (event) {
 	    self._isMouseOver = false;
 	});
 
-	node.keydown(function (event) {
+	node.addEventListener("keydown", function (event) {
 	    if (self._isWindowFocused) {
 		self._keysPressed[event.keyCode] = true;
 	    }
 	});
 
-	node.keyup(function (event) {
+	node.addEventListener("keyup", function (event) {
 	    delete self._keysPressed[event.keyCode];
 	});
 
-	$(window).blur(function (event) {
+	window.addEventListener("blur", function (event) {
 	    self._keysPressed = {};
 	    self._isWindowFocused = false;
 	});
 
-	$(window).focus(function (event) {
+	window.addEventListener("focus", function (event) {
 	    self._isWindowFocused = true;
 	});
 
-	this._node.appendTo(node);
+	node.appendChild(this._node);
     };
 
     InputController.prototype.input = function () {

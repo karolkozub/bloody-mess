@@ -9,32 +9,36 @@
     "use strict";
 
     var Player = function () {
-	this._node = $("<div class='player'>")
-	this._relativeNode = $("<div class='relative'>");
-	this._relativeNode.appendTo(this._node);
-	this._bodyNode = $("<div class='body'>");
-	this._bodyNode.appendTo(this._relativeNode);
-	this._gunNode = $("<div class='gun'>");
-	this._gunNode.appendTo(this._relativeNode);
-	this._velocity = {x: 0, y: 0};
+	this._node = document.createElement("div");
+	this._node.className = "player";
+	this._relativeNode = document.createElement("div");
+	this._relativeNode.className = "relative";
+	this._node.appendChild(this._relativeNode);
+	this._bodyNode = document.createElement("div");
+	this._bodyNode.className = "body";
+	this._relativeNode.appendChild(this._bodyNode);
+	this._gunNode = document.createElement("div");
+	this._gunNode.className = "gun";
+	this._relativeNode.appendChild(this._gunNode);
+ 	this._velocity = {x: 0, y: 0};
 	this._maxSpeed = 3;
     };
 
     Player.prototype.attachTo = function (node) {
-	this._node.appendTo(node);
+	node.appendChild(this._node);
     };
 
     Player.prototype.setPosition = function (position) {
 	this._position = position;
-	this._node[0].style.left = "" + position.x + "px";
-	this._node[0].style.top  = "" + position.y + "px";
+	this._node.style.left = "" + position.x + "px";
+	this._node.style.top  = "" + position.y + "px";
     };
 
     Player.prototype.position = function (position) {
 	if (!this._position) {
 	    this._position = {
-		x: window.parseInt(this._node[0].style.left, 10),
-		y: window.parseInt(this._node[0].style.top,  10)
+		x: window.parseInt(this._node.style.left, 10),
+		y: window.parseInt(this._node.style.top,  10)
 	    };
 	}
 	return this._position;
@@ -49,7 +53,7 @@
 	var angle = Math.PI / 2 - Math.atan2(position.x - this.position().x,
 					     position.y - this.position().y);
 
-	this._node.css("transform", "rotateZ(" + angle + "rad)");
+	this._node.style.transform = "rotateZ(" + angle + "rad)";
     };
 
     Player.prototype._updateVelocityWithInput = function (input) {
