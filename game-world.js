@@ -26,6 +26,7 @@
 	    enemy.attachTo(this._relativeNode);
 	    this._enemies.push(enemy);
 	}
+	this._bullets = [];
     };
 
     GameWorld.prototype.attachTo = function (node) {
@@ -37,9 +38,45 @@
 	this._crosshair.handleInput(input);
 	this._player.handleInput(input);
 	this._player.update();
+	this._handleInput(input);
 	this._enemies.forEach(function (enemy) {
 	    enemy.updateWithPlayerPosition(self._player.position());
 	});
+	this._bullets = this._bullets.filter(function (bullet) {
+	    bullet.update();
+
+	    var bulletIsOutsideWorld = bullet.position().x < 0 || bullet.position().x > self._size().width || bullet.position().y < 0 || bullet.position().y > self._size().height;
+
+	    if (bulletIsOutsideWorld) {
+		bullet.detachFrom(self._relativeNode);
+		return false;
+	    } else {
+		return true;
+	    }
+	});
+    };
+
+    GameWorld.prototype._size = function () {
+	return {width: this._node.clientWidth, height: this._node.clientHeight};
+    };
+
+    GameWorld.prototype._handleInput = function (input) {
+	if (input.isMouseDown) {
+	    this._shootFromPositionToPosition(this._player.position(), input.mousePosition);
+	}
+    };
+
+    GameWorld.prototype._shootFromPositionToPosition = function (fromPosition, toPosition) {
+	var distance = {x: toPosition.x -  fromPosition.x, y: toPosition.y -  fromPosition.y};
+	var speed = 100 + Math.random() * 10;
+	var angle = Math.PI / 2 - Math.atan2(distance.x, distance.y) + (Math.random() - 0.5) * Math.PI / 100;
+
+	var bullet = new window.Bullet();
+	bullet.setPosition({x: fromPosition.x, y: fromPosition.y});
+	bullet.setVelocity({x: speed * Math.cos(angle), y: speed * Math.sin(angle)});
+	bullet.setRotation(angle);
+	bullet.attachTo(this._relativeNode);
+	this._bullets.push(bullet);
     };
 
     window.GameWorld = GameWorld;

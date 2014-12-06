@@ -15,6 +15,8 @@
 	this._keysPressed = {};
 	this._isWindowFocused = true;
 	this._isMouseOver = true;
+	this._isMouseDown = false;
+	this._wasMouseDown = false;
     };
 
     InputController.prototype.attachTo = function (node) {
@@ -24,12 +26,22 @@
 	    self._mousePosition = {x: event.offsetX, y: event.offsetY};
 	});
 
+	this._node.addEventListener("mousedown", function (event) {
+	    self._isMouseDown = true;
+	    self._wasMouseDown = true;
+	});
+
+	this._node.addEventListener("mouseup", function (event) {
+	    self._isMouseDown = false;
+	});
+
 	this._node.addEventListener("mouseenter", function (event) {
 	    self._isMouseOver = true;
 	});
 
 	this._node.addEventListener("mouseleave", function (event) {
 	    self._isMouseOver = false;
+	    self._isMouseDown = false;
 	});
 
 	node.addEventListener("keydown", function (event) {
@@ -45,6 +57,8 @@
 	window.addEventListener("blur", function (event) {
 	    self._keysPressed = {};
 	    self._isWindowFocused = false;
+	    self._isMouseOver = false;
+	    self._isMouseDown = false;
 	});
 
 	window.addEventListener("focus", function (event) {
@@ -59,6 +73,9 @@
 	var ArrowDown = 40,  S = 83;
 	var ArrowLeft = 37,  A = 65;
 	var ArrowRight = 39, D = 68;
+	var wasMouseDown = this._wasMouseDown;
+
+	this._wasMouseDown = false;
 
 	return {
 	    mousePosition:  this._mousePosition,
@@ -66,7 +83,8 @@
 	    isDownPressed:  this._keysPressed[ArrowDown]  || this._keysPressed[S],
 	    isLeftPressed:  this._keysPressed[ArrowLeft]  || this._keysPressed[A],
 	    isRightPressed: this._keysPressed[ArrowRight] || this._keysPressed[D],
-	    isMouseOver:    this._isMouseOver && this._isWindowFocused
+	    isMouseOver:    this._isMouseOver,
+	    isMouseDown:    this._isMouseDown || wasMouseDown
 	};
     };
 

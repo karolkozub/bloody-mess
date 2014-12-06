@@ -56,6 +56,14 @@ html, body {
     border-radius: 10px;
 }
 
+.bullet .body {
+    left: -2px;
+    top: -1px;
+    width: 4px;
+    height: 2px;
+    background-color: black;
+}
+
 .crosshair {
     width: 1px;
     height: 1px;
