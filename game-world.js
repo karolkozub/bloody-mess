@@ -17,7 +17,6 @@
 	this._crosshair = new window.Crosshair();
 	this._crosshair.attachTo(this._relativeNode);
 	this._player = new window.Player();
-	this._player.setPosition({x: 400, y: 400});
 	this._player.attachTo(this._relativeNode);
 	this._enemies = [];
 	this._bullets = [];
@@ -31,6 +30,7 @@
 	    delete self._size;
 	});
 	node.appendChild(this._node);
+	this._player.setPosition({x: this.size().width / 2, y: this.size().height / 2});
     };
 
     GameWorld.prototype.update = function (input) {
