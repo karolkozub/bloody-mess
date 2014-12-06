@@ -18,9 +18,22 @@
 	this._bodyNode.className = "body";
 	this._relativeNode.appendChild(this._bodyNode);
 	this._velocity = {x: 0, y: 0};
-	this._size = {width: 20, height: 20};
-	this._maxSpeed = 2;
-	this._health = 100;
+
+	var extraScale = Math.random();
+	var extraSpeed = 0.5 * Math.random() + 0.5 - 0.5 * extraScale;
+	var extraHealth = Math.random();
+
+	this._scale = 1 + extraScale;
+	this._size = {width: 20 * this._scale, height: 20 * this._scale};
+	this._maxSpeed = 0.5 + 3 * extraSpeed;
+	this._health = 50 + 100 * extraHealth;
+
+	var red = Math.floor(255 * (0.5 + 0.25 * extraHealth));
+	var green = Math.floor(255 * (0.5 + 0.25 * extraScale));
+	var blue = Math.floor(255 * (0.5 + 0.25 * extraSpeed));
+
+	this._bodyNode.style.backgroundColor = "rgb(" + red + ", " + green + ", " + blue + ")";
+	this._bodyNode.style.transform = "scale(" + this._scale + ")";
     };
 
     Enemy.prototype.attachTo = function (node) {
