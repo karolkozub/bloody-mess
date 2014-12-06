@@ -20,10 +20,17 @@
 	    if (!self._isStopped) {
 		self._requestAnimationFrame(self._loopframe);
 		self._callback();
+
+		var tickTime = (new Date()).getTime();
+		self._tickTimes = self._tickTimes.filter(function (time) {
+		    return time >= (tickTime - 1000);
+		});
+		self._tickTimes.push(tickTime);
 	    }
 	};
 
 	this._startTime = (new Date()).getTime();
+	this._tickTimes = [];
 	this._loopframe();
     };
 
@@ -40,6 +47,10 @@
 	} else {
 	    return this._stopTime - this._startTime;
 	}
+    };
+
+    GameLoop.prototype.fps = function () {
+	return this._tickTimes.length;
     };
 
     GameLoop.prototype._requestAnimationFrame = (function () {

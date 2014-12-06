@@ -43,13 +43,17 @@
     Game.prototype._statistics = function () {
 	var health = this._world.playerHealth();
 	var kills = this._world.numberOfKills();
+	var enemies = this._world.numberOfEnemies();
 	var time = this._loop.runTime();
+	var fps = this._loop.fps();
 	var points = kills + Math.floor(time / 1000);
 
 	return {
 	    health: health,
 	    kills: kills,
+	    enemies: enemies,
 	    time: time,
+	    fps: fps,
 	    points: points
 	}
     };

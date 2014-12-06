@@ -134,28 +134,8 @@ html, body {
     margin: 20px auto;
 }
 
-.status-display .health {
+.status-display .label {
     position: absolute;
-    left: 10px;
-    top: 10px;
-}
-
-.status-display .kills {
-    position: absolute;
-    left: 10px;
-    top: 30px;
-}
-
-.status-display .time {
-    position: absolute;
-    left: 10px;
-    top: 50px;
-}
-
-.status-display .points {
-    position: absolute;
-    left: 10px;
-    top: 70px;
 }
 
 .spider.enemy .leg {

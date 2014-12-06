@@ -143,6 +143,10 @@
 	return this._numberOfKills;
     };
 
+    GameWorld.prototype.numberOfEnemies = function () {
+	return this._enemies.length;
+    };
+
     GameWorld.prototype.playerHealth = function () {
 	return this._player.health();
     };
