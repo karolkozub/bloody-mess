@@ -23,6 +23,7 @@
 
     GameWorld.prototype.update = function (tick, input) {
 	this._player.handleInput(input);
+	this._player.update();
     };
 
     window.GameWorld = GameWorld;

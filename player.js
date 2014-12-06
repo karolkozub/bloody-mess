@@ -16,6 +16,8 @@
 	this._bodyNode.appendTo(this._relativeNode);
 	this._gunNode = $("<div class='gun'>");
 	this._gunNode.appendTo(this._relativeNode);
+	this._velocity = {x: 0, y: 0};
+	this._maxSpeed = 8;
     };
 
     Player.prototype.attachTo = function (node) {
@@ -33,6 +35,7 @@
 
     Player.prototype.handleInput = function (input) {
 	this._rotateTowardsPosition(input.mousePosition);
+	this._updateVelocityWithInput(input);
     };
 
     Player.prototype._rotateTowardsPosition = function (position) {
@@ -40,6 +43,39 @@
 					     position.y - this.position().y);
 
 	this._node.css("transform", "rotateZ(" + angle + "rad)");
+    };
+
+    Player.prototype._updateVelocityWithInput = function (input) {
+	var speed = Math.sqrt(this._velocity.x * this._velocity.x + this._velocity.y * this._velocity.y);
+	var dimmingFactor = 0.8;
+	var change = {
+	    x: (input.isRightPressed ? 1 : 0) - (input.isLeftPressed ? 1 : 0),
+	    y: (input.isDownPressed  ? 1 : 0) - (input.isUpPressed   ? 1 : 0)
+	};
+
+	this._velocity.x += change.x;
+	this._velocity.y += change.y;
+
+	if (change.x === 0) {
+	    this._velocity.x *= dimmingFactor;
+	}
+	if (change.y === 0) {
+	    this._velocity.y *= dimmingFactor;
+	}
+
+	if (speed > this._maxSpeed) {
+	    this._velocity.x *= this._maxSpeed / speed;
+	    this._velocity.y *= this._maxSpeed / speed;
+	}
+    };
+
+    Player.prototype.update = function () {
+	var position = this.position();
+
+	position.x += this._velocity.x;
+	position.y += this._velocity.y;
+
+	this.setPosition(position);
     };
 
     window.Player = Player;
