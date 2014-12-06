@@ -34,6 +34,13 @@
 	this._health -= 1;
     };
 
+    Player.prototype.slowDown = function () {
+	var slowDownFactor = 0.1;
+
+	this._velocity.x *= slowDownFactor;
+	this._velocity.y *= slowDownFactor;
+    }
+
     Player.prototype.health = function () {
 	return this._health;
     };

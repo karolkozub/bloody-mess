@@ -44,6 +44,7 @@
 
 	    if (self._player.crossesBox(enemy.box())) {
 		self._player.loseHealth();
+		self._player.slowDown();
 	    }
 	});
 	this._bullets = this._bullets.filter(function (bullet) {
