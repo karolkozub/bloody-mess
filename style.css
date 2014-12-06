@@ -119,7 +119,11 @@ html, body {
 
 .gameover-screen .box table {
     width: 160px;
-    margin: 50px 170px;
+    margin: 40px 170px;
+}
+
+.gameover-screen .box table td.right-aligned {
+    text-align: right;
 }
 
 .gameover-screen .box button {

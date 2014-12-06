@@ -13,10 +13,14 @@
 	this._node.className = "gameover-screen";
 	this._boxNode = document.createElement("div");
 	this._boxNode.className = "box";
-	this._boxNode.innerHTML = "<header>game over</header><table><tr><td>Kills:</td><td></td></tr><tr><td>Time:</td><td></td></tr></table><button>Retry</button>";
+	this._boxNode.innerHTML = "<header>game over</header><table><tr><td>Kills:</td><td></td></tr><tr><td>Time:</td><td></td></tr><tr><td>Points:</td><td></td></tr></table><button>Retry</button>";
 	this._node.appendChild(this._boxNode);
 	this._killsNode = this._boxNode.getElementsByTagName("td")[1];
 	this._timeNode = this._boxNode.getElementsByTagName("td")[3];
+	this._pointsNode = this._boxNode.getElementsByTagName("td")[5];
+	this._killsNode.className = "right-aligned";
+	this._timeNode.className = "right-aligned";
+	this._pointsNode.className = "right-aligned";
 	this._retryButton = this._boxNode.getElementsByTagName("button")[0];
     };
 
@@ -30,7 +34,8 @@
 	    window.location.reload();
 	};
 	this._killsNode.innerHTML = "" + gameStatistics.kills;
-	this._timeNode.innerHTML = "" + (gameStatistics.time / 1000).toFixed(3);
+	this._timeNode.innerHTML = "" + Math.floor(gameStatistics.time / 1000);
+	this._pointsNode.innerHTML = "" + gameStatistics.points;
 	this._node.style.display = "";
     };
 

@@ -33,8 +33,19 @@
 	if (this._world.isGameOver()) {
 	    this._loop.stop();
 	    this._inputController.detachFrom(this._node);
-	    this._gameoverScreen.showWithGameStatistics({kills: this._world.numberOfKills(),
-							 time: this._loop.runTime()});
+	    this._gameoverScreen.showWithGameStatistics(this._statistics());
+	}
+    };
+
+    Game.prototype._statistics = function () {
+	var kills = this._world.numberOfKills();
+	var time = this._loop.runTime();
+	var points = kills + Math.floor(time / 1000);
+
+	return {
+	    kills: kills,
+	    time: time,
+	    points: points
 	}
     };
 
