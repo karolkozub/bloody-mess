@@ -136,7 +136,7 @@
     };
 
     GameWorld.prototype._addEnemies = function () {
-	if (Math.random() < 0.05) {
+	if (Math.random() < 0.025) {
 	    var enemy = Math.random() < 0.5 ? new window.SpiderEnemy() : new window.WormEnemy();
 	    var margin = 10;
 	    var x = -margin + Math.random() * (this.size().width  + 2 * margin);
