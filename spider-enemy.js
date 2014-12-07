@@ -96,6 +96,7 @@
 	    legNode.style.left = "" + -(width + radius) + "px";
 	    legNode.style.width = "" + 2 * (width + radius) + "px";
 	    legNode.style.transform = "rotateZ(" + angle + "rad)";
+	    legNode.style.webkitTransform = "rotateZ(" + angle + "rad)";
 	}
     };
 

@@ -61,6 +61,7 @@
 
     GameObject.prototype.setRotation = function (angle) {
 	this._node.style.transform = "rotateZ(" + angle + "rad)";
+	this._node.style.webkitTransform = "rotateZ(" + angle + "rad)";
 	this._rotation = angle;
     };
 
