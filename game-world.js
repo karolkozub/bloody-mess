@@ -137,6 +137,7 @@
 		powerup.applyToPlayer(self._player);
 		powerup.detachFrom(self._relativeNode);
 		self._showFloatingText(powerup.position(), powerup.message(), "green");
+		self._audioController.playPowerupSound();
 		return false;
 	    }
 
