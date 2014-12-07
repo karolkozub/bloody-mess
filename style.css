@@ -103,30 +103,44 @@ html, body {
     z-index: 4;
 }
 
-.gameover-screen .box {
+.gameover-screen .table {
+    display: table;
     width: 500px;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.gameover-screen .table-cell {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.gameover-screen .box {
     height: 280px;
-    margin: 100px auto;
-    background-color: #444;
+    background-color: white;
+    box-shadow: 0 0 2px black;
     border-radius: 10px;
 }
 
-.gameover-screen .box header {
+.gameover-screen header {
     text-align: center;
     font-size: 60px;
-    font-variant: small-caps;
+    padding-top: 10px;
 }
 
-.gameover-screen .box table {
-    width: 160px;
-    margin: 40px 170px;
+.gameover-screen .congratulations {
+    width: 100%;
+    text-align: center;
+    margin: 50px 0;
+    font-size: 20px;
 }
 
-.gameover-screen .box table t.right-aligned {
-    text-align: right;
+.gameover-screen .congratulations .points {
+    font-size: 30px;
+    color: green;
 }
 
-.gameover-screen .box button {
+.gameover-screen button {
     width: 200px;
     height: 40px;
     font-size: 20px;

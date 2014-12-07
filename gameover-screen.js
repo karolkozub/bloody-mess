@@ -11,17 +11,25 @@
     var GameoverScreen = function () {
 	this._node = document.createElement("div");
 	this._node.className = "gameover-screen";
+	this._tableNode = document.createElement("div");
+	this._tableNode.className = "table";
+	this._node.appendChild(this._tableNode);
+	this._tableCellNode = document.createElement("div");
+	this._tableCellNode.className = "table-cell";
+	this._tableNode.appendChild(this._tableCellNode);
 	this._boxNode = document.createElement("div");
 	this._boxNode.className = "box";
-	this._boxNode.innerHTML = "<header>game over</header><table><tr><td>Kills:</td><td></td></tr><tr><td>Time:</td><td></td></tr><tr><td>Points:</td><td></td></tr></table><button>Retry</button>";
-	this._node.appendChild(this._boxNode);
-	this._killsNode = this._boxNode.getElementsByTagName("td")[1];
-	this._timeNode = this._boxNode.getElementsByTagName("td")[3];
-	this._pointsNode = this._boxNode.getElementsByTagName("td")[5];
-	this._killsNode.className = "right-aligned";
-	this._timeNode.className = "right-aligned";
-	this._pointsNode.className = "right-aligned";
-	this._retryButton = this._boxNode.getElementsByTagName("button")[0];
+	this._tableCellNode.appendChild(this._boxNode);
+	this._headerNode = document.createElement("header");
+	this._headerNode.textContent = "GAME OVER";
+	this._boxNode.appendChild(this._headerNode);
+	this._congratulationsNode = document.createElement("div");
+	this._congratulationsNode.className = "congratulations";
+	this._boxNode.appendChild(this._congratulationsNode);
+	this._retryButton = document.createElement("button");
+	this._retryButton.className = "retry";
+	this._retryButton.innerHTML = "Try again?";
+	this._boxNode.appendChild(this._retryButton);
     };
 
     GameoverScreen.prototype.attachTo = function (node) {
@@ -33,9 +41,8 @@
 	this._retryButton.onclick = function () {
 	    window.location.reload();
 	};
-	this._killsNode.innerHTML = "" + gameStatistics.kills;
-	this._timeNode.innerHTML = "" + Math.floor(gameStatistics.gameTime / 1000);
-	this._pointsNode.innerHTML = "" + gameStatistics.points;
+
+	this._congratulationsNode.innerHTML = "You've scored <span class=\"points\">" + gameStatistics.points + "</span> points!";
 	this._node.style.display = "";
     };
 
