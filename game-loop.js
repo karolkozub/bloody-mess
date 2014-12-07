@@ -55,6 +55,10 @@
 	return this._tickTimes.length;
     };
 
+    GameLoop.prototype.averageFps = function () {
+	return this.tick() / (this.runTime() / 1000);
+    };
+
     GameLoop.prototype.tick = function () {
 	return this._tick;
     };

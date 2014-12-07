@@ -46,6 +46,7 @@
 	var enemies = this._world.numberOfEnemies();
 	var time = this._loop.runTime();
 	var fps = this._loop.fps();
+	var averageFps = this._loop.averageFps();
 	var points = kills + Math.floor(time / 1000);
 
 	return {
@@ -54,6 +55,7 @@
 	    enemies: enemies,
 	    time: time,
 	    fps: fps,
+	    averageFps: averageFps,
 	    points: points
 	}
     };

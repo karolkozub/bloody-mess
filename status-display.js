@@ -19,7 +19,8 @@
 	this._timeNode = this._addLabelWithOffset({x: 10, y: 50});
 	this._pointsNode = this._addLabelWithOffset({x: 10, y: 70});
 	this._fpsNode = this._addLabelWithOffset({x: 10, y: 90});
-	this._enemiesNode = this._addLabelWithOffset({x: 10, y: 110});
+	this._averageFpsNode = this._addLabelWithOffset({x: 10, y: 110});
+	this._enemiesNode = this._addLabelWithOffset({x: 10, y: 130});
     };
 
     StatusDisplay.prototype._addLabelWithOffset = function (offset) {
@@ -45,6 +46,7 @@
 	this._timeNode.innerHTML = "Time: " + (statistics.time / 1000).toFixed(3);
 	this._pointsNode.innerHTML = "Points: " + statistics.points;
 	this._fpsNode.innerHTML = "FPS: " + statistics.fps;
+	this._averageFpsNode.innerHTML = "Average FPS: " + statistics.averageFps.toFixed(1);
 	this._enemiesNode.innerHTML = "Enemies: " + statistics.enemies;
     };
 
