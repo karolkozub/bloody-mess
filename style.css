@@ -230,7 +230,9 @@ html, body {
 
 .powerup .body {
     left: -12px;
+    top: -8px;
     width: 24px;
+    height: 16px;
     text-align: center;
     font-size: 12px;
     font-variant: small-caps;
