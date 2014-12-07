@@ -50,6 +50,7 @@
 	    if (self._player.crossesBox(enemy.box())) {
 		self._player.loseHealth();
 		self._player.slowDown();
+		self._player.drawBloodOntoCanvas(self._backgroundCanvas, {x: 0, y: 0});
 	    }
 	});
 	this._bullets = this._bullets.filter(function (bullet) {

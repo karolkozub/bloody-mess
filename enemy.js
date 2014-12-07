@@ -88,41 +88,6 @@
 	}
     };
 
-    Enemy.prototype.drawBloodOntoCanvas = function (canvas, velocity) {
-	var context = canvas.getContext("2d");
-
-	context.save();
-
-	for (var i = 0; i < Math.random() * 10; i++) {
-	    var position = {
-		x: this.position().x - 15 + Math.random() * 30 + Math.random() * velocity.x,
-		y: this.position().y - 15 + Math.random() * 30 + Math.random() * velocity.y
-	    };
-	    var radius = Math.random() * 4;
-	    var color = "rgb(" + Math.floor(100 + Math.random() * 50) + ", 10, 10)";
-
-	    context.beginPath();
-
-	    if (Math.random() < 0.5) {
-		context.arc(position.x, position.y, radius, 0, 2 * Math.PI, true);
-	    } else {
-		context.moveTo(position.x, position.y);
-		context.lineTo(position.x + Math.random() * velocity.x, position.y + Math.random() * velocity.y);
-	    }
-
-
-	    context.closePath();
-	    context.lineWidth = Math.random() * 3;
-	    context.fillStyle = color;
-	    context.strokeStyle = color;
-	    context.globalAlpha = 0.5 + 0.5 * Math.random();
-	    context.fill();
-	    context.stroke();
-	}
-
-	context.restore();
-    };
-
     Enemy.prototype.drawDeadBodyOntoCanvas = function (canvas) {
 	var context = canvas.getContext("2d");
 	var position = this.position();
