@@ -67,6 +67,8 @@
 		x: -0.1 * offset.x,
 		y: -0.1 * offset.y
 	    });
+
+	    this._updateHurtCounter();
 	}
 
 	while (this._partShouldIncrement(this._currentPart)) {

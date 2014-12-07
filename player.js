@@ -28,6 +28,7 @@
 
     Player.prototype.loseHealth = function () {
 	this._health -= 1;
+	this._setHurt(true);
     };
 
     Player.prototype.slowDown = function () {
@@ -35,7 +36,7 @@
 
 	this._velocity.x *= slowDownFactor;
 	this._velocity.y *= slowDownFactor;
-    }
+    };
 
     Player.prototype.handleInput = function (input) {
 	this._rotateTowardsPosition(input.mousePosition);
@@ -76,6 +77,7 @@
 	position.y = Math.max(box.y, Math.min(box.y + box.height, position.y));
 
 	this.setPosition(position);
+	this._updateHurtCounter();
     };
 
     window.Player = Player;

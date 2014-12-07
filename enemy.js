@@ -44,6 +44,7 @@
     Enemy.prototype.update = function (tick, playerPosition) {
 	this._updateVelocityTowardsPosition(playerPosition);
 	this._updatePosition();
+	this._updateHurtCounter();
     };
 
     Enemy.prototype._updateVelocityTowardsPosition = function (position) {

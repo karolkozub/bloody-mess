@@ -10,6 +10,7 @@
 
     var LivingObject = function () {
 	this._setup();
+	this._hurtCounter = 0;
     };
 
     LivingObject.prototype = new window.GameObject();
@@ -20,6 +21,7 @@
 
     LivingObject.prototype.loseHealth = function () {
 	this._health -= 10;
+	this._setHurt(true);
     };
 
     LivingObject.prototype.health = function () {
@@ -85,6 +87,25 @@
 	    (thisBox.y + thisBox.height) > box.y &&
 	    thisBox.x < (box.x + box.width) &&
 	    thisBox.y < (box.y + box.height);
+    };
+
+    LivingObject.prototype._setHurt = function (hurt) {
+	if (hurt) {
+	    this._node.classList.add("hurt");
+	    this._hurtCounter = 3;
+	} else {
+	    this._node.classList.remove("hurt");
+	    this._hurtCounter = 0;
+	}
+    };
+
+    LivingObject.prototype._updateHurtCounter = function () {
+	this._hurtCounter = Math.max(0, this._hurtCounter - 1);
+	if (this._hurtCounter % 2 === 0) {
+	    this._node.classList.remove("hurt");
+	} else {
+	    this._node.classList.add("hurt");
+	}
     };
 
     window.LivingObject = LivingObject;

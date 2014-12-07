@@ -50,6 +50,8 @@
     SpiderEnemy.prototype.update = function (tick, playerPosition) {
 	if ((tick + this._tickOffset) % (2 * this._numberOfPauseTicks) < this._numberOfPauseTicks) {
 	    Enemy.prototype.update.call(this, tick, playerPosition);
+	} else {
+	    this._updateHurtCounter();
 	}
     };
 
