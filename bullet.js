@@ -21,7 +21,7 @@
 	this._size = {width: 4, height: 4};
     };
 
-    Bullet.prototype.didCrossBox = function (box) {
+    Bullet.prototype.didCrossObject = function (object) {
 	var numberOfPoints = 4;
 	var dx = -this._velocity.x / numberOfPoints;
 	var dy = -this._velocity.y / numberOfPoints;
@@ -32,10 +32,7 @@
 	 	y: this._position.y + dy,
 	    };
 
-	    if (point.x >= box.x &&
-		point.x < (box.x + box.width) &&
-		point.y >= box.y &&
-		point.y < (box.y + box.height)) {
+	    if (object.hitTestPoint(point)) {
 		return true;
 	    }
 	}

@@ -196,7 +196,57 @@
 	}
 
 	context.restore();
-    }
+    };
+
+    WormEnemy.prototype.hitTestPoint = function (point) {
+	for (var i = 0; i < 4; i++) {
+	    var scale = i === 0 ? 1 : 0.9 - (0.1 * i);
+	    var position = {
+		x: this.position().x + this._relativePartPosition(i).x,
+		y: this.position().y + this._relativePartPosition(i).y,
+	    };
+	    var radius = Math.floor(this._size.width / 2 * scale);
+	    var partBox = {
+		x: position.x - radius,
+		y: position.y - radius,
+		width: radius * 2,
+		height: radius * 2
+	    };
+
+	    if (point.x >= partBox.x &&
+		point.x < (partBox.x + partBox.width) &&
+		point.y >= partBox.y &&
+		point.y < (partBox.y + partBox.height)) {
+		return true;
+	    }
+	}
+	return false;
+    };
+
+    WormEnemy.prototype.hitTestBox = function (box) {
+	for (var i = 0; i < 4; i++) {
+	    var scale = i === 0 ? 1 : 0.9 - (0.1 * i);
+	    var position = {
+		x: this.position().x + this._relativePartPosition(i).x,
+		y: this.position().y + this._relativePartPosition(i).y,
+	    };
+	    var radius = Math.floor(this._size.width / 2 * scale);
+	    var partBox = {
+		x: position.x - radius,
+		y: position.y - radius,
+		width: radius * 2,
+		height: radius * 2
+	    };
+
+	    if ((partBox.x + partBox.width) > box.x &&
+		(partBox.y + partBox.height) > box.y &&
+		partBox.x < (box.x + box.width) &&
+		partBox.y < (box.y + box.height)) {
+		return true;
+	    }
+	}
+	return false;
+    };
 
     window.WormEnemy = WormEnemy;
 }());

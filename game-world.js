@@ -49,7 +49,7 @@
 	this._enemies.forEach(function (enemy) {
 	    enemy.update(tick, self._player.position());
 
-	    if (self._player.crossesBox(enemy.box())) {
+	    if (enemy.hitTestBox(self._player.box())) {
 		var recoil = {
 		    x: -1 + Math.random() * 2,
 		    y: -1 + Math.random() * 2
@@ -68,7 +68,7 @@
 	    var bulletIsOutsideWorld = bullet.position().x < 0 || bullet.position().x > self.size().width || bullet.position().y < 0 || bullet.position().y > self.size().height;
 
 	    self._enemies.forEach(function (enemy) {
-		if (bullet.didCrossBox(enemy.box())) {
+		if (bullet.didCrossObject(enemy)) {
 		    var recoil = {
 			x: bullet.velocity().x * 0.02 -0.5 + Math.random(),
 			y: bullet.velocity().y * 0.02 -0.5 + Math.random()

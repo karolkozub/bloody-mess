@@ -68,5 +68,23 @@
 	context.restore();
     };
 
+    LivingObject.prototype.hitTestPoint = function (point) {
+	var thisBox = this.box();
+
+	return point.x >= thisBox.x &&
+	    point.x < (thisBox.x + thisBox.width) &&
+	    point.y >= thisBox.y &&
+	    point.y < (thisBox.y + thisBox.height);
+    };
+
+    LivingObject.prototype.hitTestBox = function (box) {
+	var thisBox = this.box();
+
+	return (thisBox.x + thisBox.width) > box.x &&
+	    (thisBox.y + thisBox.height) > box.y &&
+	    thisBox.x < (box.x + box.width) &&
+	    thisBox.y < (box.y + box.height);
+    };
+
     window.LivingObject = LivingObject;
 }());

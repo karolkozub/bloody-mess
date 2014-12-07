@@ -66,15 +66,6 @@
 	}
     };
 
-    Player.prototype.crossesBox = function (box) {
-	var playerBox = this.box();
-
-	return (playerBox.x + playerBox.width) > box.x &&
-	    (playerBox.y + playerBox.height) > box.y &&
-	    playerBox.x < (box.x + box.width) &&
-	    playerBox.y < (box.y + box.height);
-    };
-
     Player.prototype.updateWithBoundingBox = function (box) {
 	var position = this.position();
 
