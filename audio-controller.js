@@ -10,11 +10,13 @@
 
     var AudioController = function () {
 	this._hurtSounds = [new Audio ("hurt.mp3"), new Audio ("hurt2.mp3"), new Audio ("hurt3.mp3")];
-	this._gunSound = new Audio ("gun.mp3");
+	this._gunSounds = [new Audio ("gun.mp3"), new Audio ("gun.mp3"), new Audio ("gun.mp3"), new Audio ("gun.mp3")];
+	this._currentGunSound = 0;
     };
 
     AudioController.prototype.playGunSound = function () {
-	this._gunSound.play();
+	this._gunSounds[this._currentGunSound].play();
+	this._currentGunSound = (this._currentGunSound + 1) % this._gunSounds.length;
     };
 
     AudioController.prototype.playHurtSound = function () {
