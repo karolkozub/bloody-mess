@@ -137,7 +137,7 @@
 
     GameWorld.prototype._addEnemies = function () {
 	if (Math.random() < 0.025) {
-	    var enemy = Math.random() < 0.5 ? new window.SpiderEnemy() : new window.WormEnemy();
+	    var enemy = this._newRandomEnemy();
 	    var margin = 10;
 	    var x = -margin + Math.random() * (this.size().width  + 2 * margin);
 	    var y = -margin + Math.random() * (this.size().height + 2 * margin);
@@ -154,6 +154,20 @@
 	    this._enemies.push(enemy);
 	}
     };
+
+    GameWorld.prototype._newRandomEnemy = function () {
+	var type = Math.floor(Math.random() * 3);
+
+	switch (type) {
+	case 0:
+	    return new window.SpiderEnemy();
+	case 1:
+	    return new window.WormEnemy();
+	case 2:
+	default:
+	    return new window.Enemy();
+	}
+    }
 
     GameWorld.prototype.isGameOver = function () {
 	return this._player && this._player.isDead();
