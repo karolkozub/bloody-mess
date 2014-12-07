@@ -50,10 +50,10 @@
     Powerup.prototype.applyToPlayer = function (player) {
 	switch (this._type) {
 	case 0:
-	    player.addHealth(25);
+	    player.addHealth(10);
 	    break;
 	case 1:
-	    player.addPoints(10);
+	    player.addPoints(5);
 	    break;
 	}
     };
@@ -61,9 +61,9 @@
     Powerup.prototype.message = function () {
 	switch (this._type) {
 	case 0:
-	    return "+25 HEALTH";
+	    return "+10 HEALTH";
 	case 1:
-	    return "+10 POINTS";
+	    return "+5 POINTS";
 	default:
 	    return "";
 	}
