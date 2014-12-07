@@ -63,7 +63,11 @@
 		self._player.slowDown();
 		self._player.handleRecoil(recoil);
 		self._player.drawBloodOntoCanvas(self._backgroundCanvas, recoil);
-		self._audioController.playHurtSound();
+		if (self._player.isDead()) {
+		    self._audioController.playDeathSound();
+		} else {
+		    self._audioController.playHurtSound();
+		}
 	    }
 	});
 	this._bullets = this._bullets.filter(function (bullet) {
