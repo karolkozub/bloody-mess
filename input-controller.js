@@ -23,7 +23,10 @@
 	var self = this;
 
 	this._node.addEventListener("mousemove", function (event) {
-	    self._mousePosition = {x: event.offsetX, y: event.offsetY};
+	    self._mousePosition = {
+		x: event.offsetX || event.clientX,
+		y: event.offsetY || event.clientY
+	    };
 	});
 
 	this._node.addEventListener("mousedown", function (event) {
