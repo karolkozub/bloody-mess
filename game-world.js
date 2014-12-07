@@ -26,6 +26,7 @@
 	this._deadEnemies = [];
 	this._numberOfKills = 0;
 	this._tick = 0;
+	this._audioController = new window.AudioController();
     };
 
     GameWorld.prototype.attachTo = function (node) {
@@ -59,6 +60,7 @@
 		self._player.slowDown();
 		self._player.handleRecoil(recoil);
 		self._player.drawBloodOntoCanvas(self._backgroundCanvas, recoil);
+		self._audioController.playHurtSound();
 	    }
 	});
 	this._bullets = this._bullets.filter(function (bullet) {
@@ -135,6 +137,7 @@
 	bullet.setRotation(angle);
 	bullet.attachTo(this._relativeNode);
 	this._bullets.push(bullet);
+	this._audioController.playGunSound();
     };
 
     GameWorld.prototype._addEnemies = function () {
