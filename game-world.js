@@ -28,6 +28,7 @@
 	this._tick = 0;
 	this._lastGunTick = -Infinity;
 	this._audioController = new window.AudioController();
+	this._isGodModeEnabled = false;
     };
 
     GameWorld.prototype.attachTo = function (node) {
@@ -41,9 +42,10 @@
 	this._backgroundCanvas.height = this.size().height;
     };
 
-    GameWorld.prototype.update = function (tick, input) {
+    GameWorld.prototype.update = function (tick, input, isGodModeEnabled) {
 	var self = this;
 	this._tick = tick;
+	this._isGodModeEnabled = isGodModeEnabled;
 	this._crosshair.handleInput(input);
 	this._handleInput(input);
 	this._player.handleInput(input);
@@ -51,7 +53,7 @@
 	this._enemies.forEach(function (enemy) {
 	    enemy.update(tick, self._player.position());
 
-	    if (enemy.hitTestBox(self._player.box())) {
+	    if (!self._isGodModeEnabled && enemy.hitTestBox(self._player.box())) {
 		var recoil = {
 		    x: -1 + Math.random() * 2,
 		    y: -1 + Math.random() * 2
@@ -129,7 +131,7 @@
     };
 
     GameWorld.prototype._canShoot = function () {
-	var gunDelay = 1;
+	var gunDelay = this._isGodModeEnabled ? 0 : 1;
 
 	return this._lastGunTick + gunDelay < this._tick;
     };

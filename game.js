@@ -12,6 +12,7 @@
 	this._world = new window.GameWorld();
 	this._statusDisplay = new window.StatusDisplay();
 	this._inputController = new window.InputController();
+	this._cheatcodeController = new window.CheatcodeController();
 	this._gameoverScreen = new window.GameoverScreen();
 	this._loop = new window.GameLoop();
     };
@@ -21,6 +22,7 @@
 	this._world.attachTo(node);
 	this._statusDisplay.attachTo(node);
 	this._inputController.attachTo(node);
+	this._cheatcodeController.attachTo(node);
 	this._gameoverScreen.attachTo(node);
     };
 
@@ -30,7 +32,7 @@
     };
 
     Game.prototype.update = function () {
-	this._world.update(this._loop.tick(), this._inputController.input());
+	this._world.update(this._loop.tick(), this._inputController.input(), this._cheatcodeController.isGodModeEnabled());
 	this._statusDisplay.updateWithGameStatistics(this._statistics());
 
 	if (this._world.isGameOver()) {
@@ -50,6 +52,7 @@
 	var averageFps = this._loop.averageFps();
 	var points = kills + Math.floor(this._loop.gameTime() / 1000);
 	var difficulty = this._world.difficulty();
+	var isGodModeEnabled = this._cheatcodeController.isGodModeEnabled();
 
 	return {
 	    health: health,
@@ -60,7 +63,8 @@
 	    fps: fps,
 	    averageFps: averageFps,
 	    points: points,
-	    difficulty: difficulty
+	    difficulty: difficulty,
+	    isGodModeEnabled: isGodModeEnabled
 	}
     };
 

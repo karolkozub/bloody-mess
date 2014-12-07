@@ -179,6 +179,15 @@ html, body {
     color: red;
 }
 
+.status-display .status {
+    top: 0;
+    width: 100%;
+    text-align: center;
+    color: green;
+    font-size: 32px;
+    font-variant: small-caps;
+}
+
 .status-display .copyright {
     bottom: 0;
     width: 100%;

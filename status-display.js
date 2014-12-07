@@ -29,6 +29,11 @@
 	this._copyrightNode.className = "copyright";
 	this._copyrightNode.innerHTML = "Copyright 2014 Karol Kozub";
 	this._relativeNode.appendChild(this._copyrightNode);
+	this._statusNode = document.createElement("div");
+	this._statusNode.className = "status";
+	this._statusNode.innerHTML = "God Mode Enabled";
+	this._statusNode.style.display = "none";
+	this._relativeNode.appendChild(this._statusNode);
     };
 
     StatusDisplay.prototype._addLabel = function () {
@@ -59,6 +64,7 @@
 	this._averageFpsNode.innerHTML = "Average FPS: " + statistics.averageFps.toFixed(1);
 	this._enemiesNode.innerHTML = "Enemies: " + statistics.enemies;
 	this._difficultyNode.innerHTML = "Difficulty: " + (Math.floor(statistics.difficulty * 10) / 10).toFixed(1);
+	this._statusNode.style.display = statistics.isGodModeEnabled ? "" : "none";
 
 	this._fpsNode.className = statistics.fps < 60 ? "warning label" : "label";
     };
