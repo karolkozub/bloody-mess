@@ -41,6 +41,15 @@
 	this._node.style.webkitTransform = "translate(" + position.x + "px, " + position.y + "px)";
     };
 
+    GameObject.prototype.offsetPosition = function (offset) {
+	var position = this.position();
+
+	position.x += offset.x;
+	position.y += offset.y;
+
+	this.setPosition(position);
+    };
+
     GameObject.prototype.position = function (position) {
 	if (!this._position) {
 	    this._position = {
@@ -86,12 +95,7 @@
     };
 
     GameObject.prototype._updatePosition = function () {
-	var position = this.position();
-
-	position.x += this._velocity.x;
-	position.y += this._velocity.y;
-
-	this.setPosition(position);
+	this.offsetPosition(this._velocity);
     };
 
     window.GameObject = GameObject;

@@ -30,6 +30,10 @@
 	return this._health <= 0;
     }
 
+    LivingObject.prototype.handleRecoil = function (recoil) {
+	this.offsetPosition(recoil);
+    };
+
     LivingObject.prototype.drawBloodOntoCanvas = function (canvas, velocity) {
 	var context = canvas.getContext("2d");
 

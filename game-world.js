@@ -48,9 +48,15 @@
 	    enemy.update(tick, self._player.position());
 
 	    if (self._player.crossesBox(enemy.box())) {
+		var recoil = {
+		    x: -1 + Math.random() * 2,
+		    y: -1 + Math.random() * 2
+		};
+
 		self._player.loseHealth();
 		self._player.slowDown();
-		self._player.drawBloodOntoCanvas(self._backgroundCanvas, {x: 0, y: 0});
+		self._player.handleRecoil(recoil);
+		self._player.drawBloodOntoCanvas(self._backgroundCanvas, recoil);
 	    }
 	});
 	this._bullets = this._bullets.filter(function (bullet) {
@@ -61,8 +67,14 @@
 
 	    self._enemies.forEach(function (enemy) {
 		if (bullet.didCrossBox(enemy.box())) {
+		    var recoil = {
+			x: bullet.velocity().x * 0.02 -0.5 + Math.random(),
+			y: bullet.velocity().y * 0.02 -0.5 + Math.random()
+		    };
+
 		    bulletHitEnemy = true;
 		    enemy.loseHealth();
+		    enemy.handleRecoil(recoil);
 		    enemy.drawBloodOntoCanvas(self._backgroundCanvas, bullet.velocity());
 		}
 	    });
