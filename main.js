@@ -9,7 +9,7 @@
     "use strict";
 
     document.addEventListener('DOMContentLoaded', function(){
-	var game = new window.Game();
+	window.game = new window.Game();
 
 	game.attachTo(document.body);
 	game.start();
