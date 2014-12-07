@@ -15,8 +15,17 @@
 	this._relativeNode.className = "relative";
 	this._node.appendChild(this._relativeNode);
 	this._offsetX = 10;
-	this._offsetY = 10;
-	this._healthNode = this._addLabel();
+	this._offsetY = 40;
+	this._healthBarNode = document.createElement("div");
+	this._healthBarNode.className = "health-bar";
+	this._relativeNode.appendChild(this._healthBarNode);
+	this._healthProgressNode = document.createElement("div");
+	this._healthProgressNode.className = "progress";
+	this._healthBarNode.appendChild(this._healthProgressNode);
+	this._healthLabelNode = document.createElement("div");
+	this._healthLabelNode.className = "health-label";
+	this._healthBarNode.appendChild(this._healthLabelNode);
+
 	this._killsNode = this._addLabel();
 	this._runTimeNode = this._addLabel();
 	this._gameTimeNode = this._addLabel();
@@ -55,7 +64,10 @@
     };
 
     StatusDisplay.prototype.updateWithGameStatistics = function (statistics) {
-	this._healthNode.innerHTML = "Health: " + statistics.health;
+	var healthPercent = "" + Math.floor(statistics.health) + "%";
+	this._healthProgressNode.style.width = healthPercent;
+	this._healthLabelNode.innerHTML = healthPercent;
+
 	this._killsNode.innerHTML = "Kills: " + statistics.kills;
 	this._runTimeNode.innerHTML = "Run Time: " + (statistics.runTime / 1000).toFixed(3);
 	this._gameTimeNode.innerHTML = "Game Time: " + (statistics.gameTime / 1000).toFixed(3);
