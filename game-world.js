@@ -26,6 +26,7 @@
 	this._deadEnemies = [];
 	this._numberOfKills = 0;
 	this._tick = 0;
+	this._lastGunTick = -Infinity;
 	this._audioController = new window.AudioController();
     };
 
@@ -121,15 +122,22 @@
     };
 
     GameWorld.prototype._handleInput = function (input) {
-	if (input.isMouseDown) {
+	if (input.isMouseDown && this._canShoot()) {
 	    this._shootFromPositionToPosition(this._player.position(), input.mousePosition);
+	    this._lastGunTick = this._tick;
 	}
+    };
+
+    GameWorld.prototype._canShoot = function () {
+	var gunDelay = 1;
+
+	return this._lastGunTick + gunDelay < this._tick;
     };
 
     GameWorld.prototype._shootFromPositionToPosition = function (fromPosition, toPosition) {
 	var distance = {x: toPosition.x -  fromPosition.x, y: toPosition.y -  fromPosition.y};
-	var speed = 20 + Math.random() * 10;
-	var angle = Math.PI / 2 - Math.atan2(distance.x, distance.y) + (Math.random() - 0.5) * Math.PI / 100;
+	var speed = 40 + Math.random() * 20;
+	var angle = Math.PI / 2 - Math.atan2(distance.x, distance.y) + (Math.random() - 0.5) * Math.PI / 20;
 
 	var bullet = new window.Bullet();
 	bullet.setPosition({x: fromPosition.x, y: fromPosition.y});
@@ -141,7 +149,7 @@
     };
 
     GameWorld.prototype._addEnemies = function () {
-	if (Math.random() < 0.025) {
+	if (Math.random() < 0.05 * Math.sqrt(this.difficulty())) {
 	    var enemy = this._newRandomEnemy();
 	    var margin = 10;
 	    var x = -margin + Math.random() * (this.size().width  + 2 * margin);

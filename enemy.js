@@ -25,8 +25,8 @@
 
 	this._scale = 1 + extraScale;
 	this._size = {width: Math.round(20 * this._scale), height: Math.round(20 * this._scale)};
-	this._maxSpeed = 1.5 + 3 * extraSpeed;
-	this._health = 50 + 100 * extraHealth;
+	this._maxSpeed = 3 + 3 * extraSpeed;
+	this._health = 10 + 30 * extraHealth;
 
 	var red = Math.floor(255 * Math.min(0.9, (0.25 + 0.25 * extraHealth)));
 	var green = Math.floor(255 * Math.min(0.9, (0.5 + 0.25 * extraScale)));
