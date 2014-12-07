@@ -116,10 +116,10 @@ html, body {
 }
 
 .gameover-screen .box {
-    height: 280px;
     background-color: white;
     box-shadow: 0 0 2px black;
     border-radius: 10px;
+    padding: 10px;
 }
 
 .gameover-screen header {
@@ -138,6 +138,21 @@ html, body {
 .gameover-screen .congratulations .points {
     font-size: 30px;
     color: green;
+}
+
+.gameover-screen .highscores {
+    width: 100%;
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.gameover-screen .highscores tbody:nth-child(odd) {
+    background-color: #EEE;
+}
+
+.gameover-screen .highscores .current {
+    color: green;
+    font-weight: bold;
 }
 
 .gameover-screen button {
