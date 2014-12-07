@@ -10,6 +10,7 @@
 
     var AudioController = function () {
 	this._deathSound = new Audio("death.mp3");
+	this._reloadSound = new Audio("reload.mp3");
 	this._hurtSounds = [new Audio("hurt.mp3"), new Audio("hurt2.mp3"), new Audio("hurt3.mp3")];
 	this._enemyHurtSounds = [];
 	this._gunSounds = [];
@@ -49,6 +50,10 @@
 
     AudioController.prototype.playDeathSound = function () {
 	this._deathSound.play();
+    };
+
+    AudioController.prototype.playReloadSound = function () {
+	this._reloadSound.play();
     };
 
     window.AudioController = AudioController;

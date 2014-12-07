@@ -27,6 +27,10 @@
 	this._numberOfKills = 0;
 	this._tick = 0;
 	this._lastGunTick = -Infinity;
+	this._maxNumberOfBullets = 100;
+	this._reloadDelay = 30;
+	this._lastReloadTick = -Infinity;
+	this._numberOfBullets = this._maxNumberOfBullets;
 	this._audioController = new window.AudioController();
 	this._isGodModeEnabled = false;
     };
@@ -137,8 +141,10 @@
 
     GameWorld.prototype._canShoot = function () {
 	var gunDelay = this._isGodModeEnabled ? 0 : 1;
+	var waitingForNextBullet = this._lastGunTick + gunDelay >= this._tick;
+	var waitingForReload = this._lastReloadTick + this._reloadDelay >= this._tick;
 
-	return this._lastGunTick + gunDelay < this._tick;
+	return !waitingForNextBullet && !waitingForReload;
     };
 
     GameWorld.prototype._shootFromPositionToPosition = function (fromPosition, toPosition) {
@@ -153,6 +159,12 @@
 	bullet.attachTo(this._relativeNode);
 	this._bullets.push(bullet);
 	this._audioController.playGunSound();
+	this._numberOfBullets -= 1;
+	if (this._numberOfBullets <= 0) {
+	    this._lastReloadTick = this._tick;
+	    this._numberOfBullets = this._maxNumberOfBullets;
+	    this._audioController.playReloadSound();
+	}
     };
 
     GameWorld.prototype._addEnemies = function () {
