@@ -91,8 +91,10 @@
 
     LivingObject.prototype._setHurt = function (hurt) {
 	if (hurt) {
-	    this._node.classList.add("hurt");
-	    this._hurtCounter = 3;
+	    if (this._hurtCounter !== 2) {
+		this._node.classList.add("hurt");
+		this._hurtCounter = 3;
+	    }
 	} else {
 	    this._node.classList.remove("hurt");
 	    this._hurtCounter = 0;
