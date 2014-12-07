@@ -37,8 +37,8 @@
 
     GameObject.prototype.setPosition = function (position) {
 	this._position = position;
-	this._node.style.left = "" + Math.round(position.x) + "px";
-	this._node.style.top  = "" + Math.round(position.y) + "px";
+	this._node.style.transform = "translate(" + position.x + "px, " + position.y + "px)";
+	this._node.style.webkitTransform = "translate(" + position.x + "px, " + position.y + "px)";
     };
 
     GameObject.prototype.position = function (position) {
@@ -60,8 +60,8 @@
     };
 
     GameObject.prototype.setRotation = function (angle) {
-	this._node.style.transform = "rotateZ(" + angle + "rad)";
-	this._node.style.webkitTransform = "rotateZ(" + angle + "rad)";
+	this._relativeNode.style.transform = "rotateZ(" + angle + "rad)";
+	this._relativeNode.style.webkitTransform = "rotateZ(" + angle + "rad)";
 	this._rotation = angle;
     };
 
