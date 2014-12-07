@@ -100,6 +100,7 @@
 	    }
 	});
 	this._addEnemies();
+	this._resizeBackgroundCanvasIfNeeded();
     };
 
     GameWorld.prototype.size = function () {
@@ -167,7 +168,25 @@
 	default:
 	    return new window.Enemy(this.difficulty());
 	}
-    }
+    };
+
+    GameWorld.prototype._resizeBackgroundCanvasIfNeeded = function () {
+	var parentWidth = this._backgroundCanvas.parentElement.offsetWidth;
+	var parentHeight = this._backgroundCanvas.parentElement.offsetHeight;
+	var shouldBeWider  = this._backgroundCanvas.width  < parentWidth
+	var shouldBeHigher = this._backgroundCanvas.height < parentHeight;
+
+	if (shouldBeWider || shouldBeHigher) {
+	    var image = new window.Image();
+	    var self = this;
+	    image.src = this._backgroundCanvas.toDataURL();
+	    image.onload = function () {
+		self._backgroundCanvas.width = Math.max(parentWidth, self._backgroundCanvas.width);
+		self._backgroundCanvas.height = Math.max(parentHeight, self._backgroundCanvas.height);
+		self._backgroundCanvas.getContext("2d").drawImage(image, 0, 0);
+	    };
+	}
+    };
 
     GameWorld.prototype.isGameOver = function () {
 	return this._player && this._player.isDead();
