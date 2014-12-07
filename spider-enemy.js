@@ -40,10 +40,18 @@
 	}
 	this._usingEvenLegs = true;
 	this._extraTipOffset = {x: 0, y: 0};
+	this._numberOfPauseTicks = 50 + Math.random() * 100;
+	this._tickOffset = Math.floor(Math.random() * this._numberOfPauseTicks);
     };
 
     SpiderEnemy.prototype.setRotation = function (angle) {
 	this._rotation = angle;
+    };
+
+    SpiderEnemy.prototype.update = function (tick, playerPosition) {
+	if ((tick + this._tickOffset) % (2 * this._numberOfPauseTicks) < this._numberOfPauseTicks) {
+	    Enemy.prototype.update.call(this, tick, playerPosition);
+	}
     };
 
     SpiderEnemy.prototype._updatePosition = function (position) {

@@ -26,11 +26,13 @@
 		    return time >= (tickTime - 1000);
 		});
 		self._tickTimes.push(tickTime);
+		self._tick += 1;
 	    }
 	};
 
 	this._startTime = (new Date()).getTime();
 	this._tickTimes = [];
+	this._tick = 0;
 	this._loopframe();
     };
 
@@ -51,6 +53,10 @@
 
     GameLoop.prototype.fps = function () {
 	return this._tickTimes.length;
+    };
+
+    GameLoop.prototype.tick = function () {
+	return this._tick;
     };
 
     GameLoop.prototype._requestAnimationFrame = (function () {

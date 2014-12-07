@@ -38,14 +38,14 @@
 	this._backgroundCanvas.height = this.size().height;
     };
 
-    GameWorld.prototype.update = function (input) {
+    GameWorld.prototype.update = function (tick, input) {
 	var self = this;
 	this._crosshair.handleInput(input);
 	this._handleInput(input);
 	this._player.handleInput(input);
 	this._player.updateWithBoundingBox(this.box());
 	this._enemies.forEach(function (enemy) {
-	    enemy.updateWithPlayerPosition(self._player.position());
+	    enemy.update(tick, self._player.position());
 
 	    if (self._player.crossesBox(enemy.box())) {
 		self._player.loseHealth();

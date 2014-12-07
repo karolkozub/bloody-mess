@@ -30,7 +30,7 @@
     };
 
     Game.prototype.update = function () {
-	this._world.update(this._inputController.input());
+	this._world.update(this._loop.tick(), this._inputController.input());
 	this._statusDisplay.updateWithGameStatistics(this._statistics());
 
 	if (this._world.isGameOver()) {
