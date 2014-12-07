@@ -83,6 +83,7 @@
 		    enemy.loseHealth();
 		    enemy.handleRecoil(recoil);
 		    enemy.drawBloodOntoCanvas(self._backgroundCanvas, bullet.velocity());
+		    self._audioController.playEnemyHurtSound();
 		}
 	    });
 
