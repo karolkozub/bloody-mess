@@ -64,8 +64,8 @@
 
 	    if (!self._isGodModeEnabled && enemy.hitTestBox(self._player.box())) {
 		var recoil = {
-		    x: -1 + Math.random() * 2,
-		    y: -1 + Math.random() * 2
+		    x: (-0.5 + Math.random()) * 10,
+		    y: (-0.5 + Math.random()) * 10
 		};
 
 		self._player.loseHealth();
@@ -88,8 +88,8 @@
 	    self._enemies.forEach(function (enemy) {
 		if (bullet.didCrossObject(enemy)) {
 		    var recoil = {
-			x: bullet.velocity().x * 0.02 -0.5 + Math.random(),
-			y: bullet.velocity().y * 0.02 -0.5 + Math.random()
+			x: bullet.velocity().x * 0.2 -0.5 + Math.random(),
+			y: bullet.velocity().y * 0.2 -0.5 + Math.random()
 		    };
 
 		    bulletHitEnemy = true;
