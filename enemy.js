@@ -8,20 +8,17 @@
 (function () {
     "use strict";
 
-    var Enemy = function () {
-	this._setup();
+    var Enemy = function (difficulty) {
+	this._setup(difficulty);
     };
 
     Enemy.prototype = new window.LivingObject();
 
-    Enemy.prototype._setup = function () {
+    Enemy.prototype._setup = function (difficulty) {
 	window.GameObject.prototype._setup.call(this);
 
 	this._node.className = "enemy";
-	this.setDifficulty(1);
-    };
 
-    Enemy.prototype.setDifficulty = function (difficulty) {
 	var extraScale = Math.random() * difficulty;
 	var extraSpeed = Math.max(0, 0.5 * Math.random() * difficulty + 0.5 - 0.5 * extraScale);
 	var extraHealth = Math.random() * difficulty;

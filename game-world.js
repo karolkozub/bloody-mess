@@ -148,7 +148,6 @@
 	    	y = Math.random() < 0.5 ? -margin : (this.size().height + margin);
 	    }
 
-	    enemy.setDifficulty(this.difficulty());
 	    enemy.setPosition({x: x, y: y});
 	    enemy.attachTo(this._relativeNode);
 	    this._enemies.push(enemy);
@@ -160,12 +159,12 @@
 
 	switch (type) {
 	case 0:
-	    return new window.SpiderEnemy();
+	    return new window.SpiderEnemy(this.difficulty());
 	case 1:
-	    return new window.WormEnemy();
+	    return new window.WormEnemy(this.difficulty());
 	case 2:
 	default:
-	    return new window.Enemy();
+	    return new window.Enemy(this.difficulty());
 	}
     }
 

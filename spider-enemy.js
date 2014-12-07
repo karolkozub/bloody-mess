@@ -8,14 +8,14 @@
 (function () {
     "use strict";
 
-    var SpiderEnemy = function () {
-	this._setup();
+    var SpiderEnemy = function (difficulty) {
+	this._setup(difficulty);
     };
 
     SpiderEnemy.prototype = new window.Enemy();
 
-    SpiderEnemy.prototype._setup = function () {
-	window.Enemy.prototype._setup.call(this);
+    SpiderEnemy.prototype._setup = function (difficulty) {
+	window.Enemy.prototype._setup.call(this, difficulty);
 
 	this._node.className = "spider enemy";
 	this._legNodes = [];
@@ -42,24 +42,8 @@
 	this._extraTipOffset = {x: 0, y: 0};
 	this._numberOfPauseTicks = 50 + Math.random() * 100;
 	this._tickOffset = Math.floor(Math.random() * this._numberOfPauseTicks);
-    };
-
-    SpiderEnemy.prototype.setDifficulty = function (difficulty) {
-	window.Enemy.prototype.setDifficulty.call(this, difficulty);
 
 	for (var i = 0; i < 3; i++) {
-	    var angle = Math.PI / 6 + Math.PI / 3 * i;
-	    var radius = this._size.width / 2;
-	    var width = Math.round(20 * this._scale);
-
-	    if (this._baseTipOffsets && this._baseTipOffsets[i]) {
-		this._baseTipOffsets[i].x = Math.cos(angle) * (radius + width);
-		this._baseTipOffsets[i].y = Math.sin(angle) * (radius + width);
-	    }
-	    if (this._baseJointOffsets && this._baseJointOffsets[i]) {
-		this._baseJointOffsets[i].x = Math.cos(angle) * radius;
-		this._baseJointOffsets[i].y = Math.sin(angle) * radius;
-	    }
 	}
     };
 

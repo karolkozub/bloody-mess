@@ -8,14 +8,14 @@
 (function () {
     "use strict";
 
-    var WormEnemy = function () {
-	this._setup();
+    var WormEnemy = function (difficulty) {
+	this._setup(difficulty);
     };
 
     WormEnemy.prototype = new window.Enemy();
 
-    WormEnemy.prototype._setup = function () {
-	window.Enemy.prototype._setup.call(this);
+    WormEnemy.prototype._setup = function (difficulty) {
+	window.Enemy.prototype._setup.call(this, difficulty);
 
 	this._node.className = "worm enemy";
 	this._stretchOffset = {x: 0, y: 0};
@@ -24,32 +24,23 @@
 	this._partNodes = [this._bodyNode];
 	for (var i = 1; i < 4; i++) {
 	    var partNode = document.createElement("div");
+	    var scale = 0.9 - (0.1 * i);
+
 	    partNode.className = "body part";
 	    partNode._position = {x: 0, y: 0};
 	    this._relativeNode.appendChild(partNode);
 	    this._previousPartNode = partNode;
 	    this._partNodes.push(partNode);
+
+	    partNode.style.backgroundColor = this._color;
+	    partNode.style.left = "" + Math.floor(-this._size.width / 2 * scale) + "px";
+	    partNode.style.top = "" + Math.floor(-this._size.height / 2 * scale) + "px";
+	    partNode.style.width = "" + Math.floor(this._size.width * scale) + "px";
+	    partNode.style.height = "" + Math.floor(this._size.height * scale) + "px";
+	    partNode.style.borderRadius = "" + Math.floor(this._size.width / 2 * scale) + "px";
+	    partNode.style.zIndex = i;
 	}
 	this._currentPart = 0;
-    };
-
-    WormEnemy.prototype.setDifficulty = function (difficulty) {
-	window.Enemy.prototype.setDifficulty.call(this, difficulty);
-
-	if (this._partNodes) {
-	    for (var i = 1; i < 4; i++) {
-		var partNode = this._partNodes[i];
-		var scale = 0.9 - (0.1 * i);
-
-		partNode.style.backgroundColor = this._color;
-		partNode.style.left = "" + Math.floor(-this._size.width / 2 * scale) + "px";
-		partNode.style.top = "" + Math.floor(-this._size.height / 2 * scale) + "px";
-		partNode.style.width = "" + Math.floor(this._size.width * scale) + "px";
-		partNode.style.height = "" + Math.floor(this._size.height * scale) + "px";
-		partNode.style.borderRadius = "" + Math.floor(this._size.width / 2 * scale) + "px";
-		partNode.style.zIndex = i;
-	    }
-	}
     };
 
     WormEnemy.prototype.update = function (tick, playerPosition) {
