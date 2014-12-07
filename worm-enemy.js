@@ -42,11 +42,11 @@
 		var scale = 0.9 - (0.1 * i);
 
 		partNode.style.backgroundColor = this._color;
-		partNode.style.left = "" + (-this._size.width / 2 * scale) + "px";
-		partNode.style.top = "" + (-this._size.height / 2 * scale) + "px";
-		partNode.style.width = "" + this._size.width * scale + "px";
-		partNode.style.height = "" + this._size.height * scale + "px";
-		partNode.style.borderRadius = "" + (this._size.width / 2 * scale) + "px";
+		partNode.style.left = "" + Math.floor(-this._size.width / 2 * scale) + "px";
+		partNode.style.top = "" + Math.floor(-this._size.height / 2 * scale) + "px";
+		partNode.style.width = "" + Math.floor(this._size.width * scale) + "px";
+		partNode.style.height = "" + Math.floor(this._size.height * scale) + "px";
+		partNode.style.borderRadius = "" + Math.floor(this._size.width / 2 * scale) + "px";
 		partNode.style.zIndex = i;
 	    }
 	}
@@ -102,6 +102,20 @@
 	}
     };
 
+    WormEnemy.prototype._relativePartPosition = function (part) {
+	if (part === 0) {
+	    return {
+		x: 0,
+		y: 0
+	    };
+	} else {
+	    return {
+		x: this._partNodes[part]._position.x,
+		y: this._partNodes[part]._position.y
+	    };
+	}
+    };
+
     WormEnemy.prototype._setPartPosition = function (part, position) {
 	if (part === 0) {
 	    this.setPosition(position);
@@ -125,9 +139,9 @@
 
     WormEnemy.prototype._partOffset = function (part) {
 	if (part === 0) {
-	    return this.position();
+	    return {x: 0, y: 0};
 	} else {
-	    var prevPartPosition = part === 1 ? {x: 0, y: 0} : this._partNodes[part - 1]._position;
+	    var prevPartPosition = this._relativePartPosition(part - 1);
 	    var partPosition = this._partNodes[part]._position;
 
 	    return {
@@ -158,6 +172,31 @@
 	}
 	return false;
     };
+
+    WormEnemy.prototype.drawDeadBodyOntoCanvas = function (canvas) {
+	var context = canvas.getContext("2d");
+	var color = this._color;
+
+	context.save();
+	context.fillStyle = color;
+	context.globalAlpha = 0.5;
+
+	for (var i = 0; i < 4; i++) {
+	    var position = {
+		x: this.position().x + this._relativePartPosition(i).x,
+		y: this.position().y + this._relativePartPosition(i).y,
+	    };
+	    var scale = i === 0 ? 1 : 0.9 - (0.1 * i);
+	    var radius = Math.floor(this._size.width / 2 * scale);
+
+	    context.beginPath();
+	    context.arc(position.x, position.y, radius, 0, 2 * Math.PI, true);
+	    context.closePath();
+	    context.fill();
+	}
+
+	context.restore();
+    }
 
     window.WormEnemy = WormEnemy;
 }());
