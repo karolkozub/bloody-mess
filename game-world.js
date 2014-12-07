@@ -33,6 +33,7 @@
 	this._numberOfBullets = this._maxNumberOfBullets;
 	this._audioController = new window.AudioController();
 	this._isGodModeEnabled = false;
+	this._floatingTexts = [];
     };
 
     GameWorld.prototype.attachTo = function (node) {
@@ -108,6 +109,17 @@
 		enemy.drawDeadBodyOntoCanvas(self._backgroundCanvas);
 		enemy.drawBloodOntoCanvas(self._backgroundCanvas, {x: 0, y: 0});
 		self._numberOfKills += 1;
+		self._showFloatingText(enemy.position(), "+1 KILL", "#C44");
+		return false;
+	    } else {
+		return true;
+	    }
+	});
+	this._floatingTexts = this._floatingTexts.filter(function (floatingText) {
+	    floatingText.update(self._tick);
+
+	    if (floatingText.progress(self._tick) >= 1) {
+		floatingText.detachFrom(self._relativeNode);
 		return false;
 	    } else {
 		return true;
@@ -216,6 +228,15 @@
 		self._backgroundCanvas.getContext("2d").drawImage(image, 0, 0);
 	    };
 	}
+    };
+
+    GameWorld.prototype._showFloatingText = function (position, text, color) {
+	var floatingText = new window.FloatingText(this._tick, text, color);
+
+	floatingText.setPosition({x: position.x, y: position.y});
+	floatingText.attachTo(this._relativeNode);
+
+	this._floatingTexts.push(floatingText);
     };
 
     GameWorld.prototype.isGameOver = function () {

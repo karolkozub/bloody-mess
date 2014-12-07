@@ -210,3 +210,12 @@ html, body {
     background-color: black;
     z-index: -1;
 }
+
+.floating-text .body {
+    left: -50px;
+    width: 100px;
+    text-align: center;
+    font-size: 12px;
+    font-variant: small-caps;
+    text-outline: 1px 0 0 white;
+}
