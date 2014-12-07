@@ -52,10 +52,6 @@
 	}
     };
 
-    WormEnemy.prototype.setRotation = function (angle) {
-	this._rotation = angle;
-    };
-
     WormEnemy.prototype.update = function (tick, playerPosition) {
 	if (this._stop) {
 	    return;

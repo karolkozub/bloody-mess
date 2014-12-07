@@ -45,7 +45,6 @@
     };
 
     Enemy.prototype.update = function (tick, playerPosition) {
-	this._rotateTowardsPosition(playerPosition);
 	this._updateVelocityTowardsPosition(playerPosition);
 	this._updatePosition();
     };
