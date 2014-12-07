@@ -16,8 +16,11 @@
 	this._currentEnemyHurtSound = 0;
 
 	for (var i = 0; i < 10; i++) {
+	    var gunSound = new Audio("gun.mp3");
+	    gunSound.volume = 0.5;
+
 	    this._enemyHurtSounds.push(new Audio("enemy-hurt.mp3"));
-	    this._gunSounds.push(new Audio("gun.mp3"));
+	    this._gunSounds.push(gunSound);
 	}
     };
 
