@@ -44,6 +44,25 @@
 	this._tickOffset = Math.floor(Math.random() * this._numberOfPauseTicks);
     };
 
+    SpiderEnemy.prototype.setDifficulty = function (difficulty) {
+	window.Enemy.prototype.setDifficulty.call(this, difficulty);
+
+	for (var i = 0; i < 3; i++) {
+	    var angle = Math.PI / 6 + Math.PI / 3 * i;
+	    var radius = this._size.width / 2;
+	    var width = Math.round(20 * this._scale);
+
+	    if (this._baseTipOffsets && this._baseTipOffsets[i]) {
+		this._baseTipOffsets[i].x = Math.cos(angle) * (radius + width);
+		this._baseTipOffsets[i].y = Math.sin(angle) * (radius + width);
+	    }
+	    if (this._baseJointOffsets && this._baseJointOffsets[i]) {
+		this._baseJointOffsets[i].x = Math.cos(angle) * radius;
+		this._baseJointOffsets[i].y = Math.sin(angle) * radius;
+	    }
+	}
+    };
+
     SpiderEnemy.prototype.setRotation = function (angle) {
 	this._rotation = angle;
     };

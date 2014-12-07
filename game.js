@@ -48,6 +48,7 @@
 	var fps = this._loop.fps();
 	var averageFps = this._loop.averageFps();
 	var points = kills + Math.floor(time / 1000);
+	var difficulty = this._world.difficulty();
 
 	return {
 	    health: health,
@@ -56,7 +57,8 @@
 	    time: time,
 	    fps: fps,
 	    averageFps: averageFps,
-	    points: points
+	    points: points,
+	    difficulty: difficulty
 	}
     };
 

@@ -18,19 +18,22 @@
 	window.GameObject.prototype._setup.call(this);
 
 	this._node.className = "enemy";
+	this.setDifficulty(1);
+    };
 
-	var extraScale = Math.random();
-	var extraSpeed = 0.5 * Math.random() + 0.5 - 0.5 * extraScale;
-	var extraHealth = Math.random();
+    Enemy.prototype.setDifficulty = function (difficulty) {
+	var extraScale = Math.random() * difficulty;
+	var extraSpeed = Math.max(0, 0.5 * Math.random() * difficulty + 0.5 - 0.5 * extraScale);
+	var extraHealth = Math.random() * difficulty;
 
 	this._scale = 1 + extraScale;
 	this._size = {width: Math.round(20 * this._scale), height: Math.round(20 * this._scale)};
 	this._maxSpeed = 0.5 + 3 * extraSpeed;
 	this._health = 50 + 100 * extraHealth;
 
-	var red = Math.floor(255 * (0.25 + 0.25 * extraHealth));
-	var green = Math.floor(255 * (0.5 + 0.25 * extraScale));
-	var blue = Math.floor(255 * (0.25 + 0.25 * extraSpeed));
+	var red = Math.floor(255 * Math.min(0.9, (0.25 + 0.25 * extraHealth)));
+	var green = Math.floor(255 * Math.min(0.9, (0.5 + 0.25 * extraScale)));
+	var blue = Math.floor(255 * Math.min(0.9, (0.25 + 0.25 * extraSpeed)));
 
 	this._color = "rgb(" + red + ", " + green + ", " + blue + ")";
 	this._bodyNode.style.backgroundColor = this._color;

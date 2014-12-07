@@ -25,6 +25,7 @@
 	this._bullets = [];
 	this._deadEnemies = [];
 	this._numberOfKills = 0;
+	this._tick = 0;
     };
 
     GameWorld.prototype.attachTo = function (node) {
@@ -40,6 +41,7 @@
 
     GameWorld.prototype.update = function (tick, input) {
 	var self = this;
+	this._tick = tick;
 	this._crosshair.handleInput(input);
 	this._handleInput(input);
 	this._player.handleInput(input);
@@ -108,7 +110,11 @@
 
     GameWorld.prototype.box = function () {
 	return {x: 0, y: 0, width: this.size().width, height: this.size().height};
-    }
+    };
+
+    GameWorld.prototype.difficulty = function () {
+	return 1 + this._tick / 3600;
+    };
 
     GameWorld.prototype._handleInput = function (input) {
 	if (input.isMouseDown) {
@@ -142,6 +148,7 @@
 	    	y = Math.random() < 0.5 ? -margin : (this.size().height + margin);
 	    }
 
+	    enemy.setDifficulty(this.difficulty());
 	    enemy.setPosition({x: x, y: y});
 	    enemy.attachTo(this._relativeNode);
 	    this._enemies.push(enemy);
