@@ -15,7 +15,7 @@
     Player.prototype = new window.LivingObject();
 
     Player.prototype._setup = function () {
-	window.GameObject.prototype._setup.call(this);
+	window.LivingObject.prototype._setup.call(this);
 
 	this._node.className = "player";
 	this._gunNode = document.createElement("div");
@@ -23,7 +23,6 @@
 	this._relativeNode.appendChild(this._gunNode);
 	this._size = {width: 20, height: 20};
 	this._maxSpeed = 3;
-	this._health = 100;
     };
 
     Player.prototype.loseHealth = function () {

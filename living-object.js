@@ -10,13 +10,13 @@
 
     var LivingObject = function () {
 	this._setup();
-	this._hurtCounter = 0;
     };
 
     LivingObject.prototype = new window.GameObject();
 
     LivingObject.prototype._setup = function () {
 	this._health = 100;
+	this._hurtCounter = 0;
     };
 
     LivingObject.prototype.loseHealth = function () {
