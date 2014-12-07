@@ -44,17 +44,19 @@
 	var health = this._world.playerHealth();
 	var kills = this._world.numberOfKills();
 	var enemies = this._world.numberOfEnemies();
-	var time = this._loop.runTime();
+	var runTime = this._loop.runTime();
+	var gameTime = this._loop.gameTime();
 	var fps = this._loop.fps();
 	var averageFps = this._loop.averageFps();
-	var points = kills + Math.floor(time / 1000);
+	var points = kills + Math.floor(this._loop.gameTime() / 1000);
 	var difficulty = this._world.difficulty();
 
 	return {
 	    health: health,
 	    kills: kills,
 	    enemies: enemies,
-	    time: time,
+	    runTime: runTime,
+	    gameTime: gameTime,
 	    fps: fps,
 	    averageFps: averageFps,
 	    points: points,

@@ -33,6 +33,7 @@
 	this._startTime = (new Date()).getTime();
 	this._tickTimes = [];
 	this._tick = 0;
+	this._ticksPerSecond = 60;
 	this._loopframe();
     };
 
@@ -49,6 +50,10 @@
 	} else {
 	    return this._stopTime - this._startTime;
 	}
+    };
+
+    GameLoop.prototype.gameTime = function () {
+	return this._tick / this._ticksPerSecond * 1000;
     };
 
     GameLoop.prototype.fps = function () {

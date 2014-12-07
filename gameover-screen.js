@@ -34,7 +34,7 @@
 	    window.location.reload();
 	};
 	this._killsNode.innerHTML = "" + gameStatistics.kills;
-	this._timeNode.innerHTML = "" + Math.floor(gameStatistics.time / 1000);
+	this._timeNode.innerHTML = "" + Math.floor(gameStatistics.gameTime / 1000);
 	this._pointsNode.innerHTML = "" + gameStatistics.points;
 	this._node.style.display = "";
     };
