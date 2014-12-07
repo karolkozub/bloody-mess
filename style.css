@@ -29,6 +29,10 @@ html, body {
     padding: 0;
 }
 
+.background {
+    z-index: -2;
+}
+
 .player {
     z-index: 1;
 }
@@ -215,7 +219,22 @@ html, body {
     left: -50px;
     width: 100px;
     text-align: center;
-    font-size: 12px;
+    font-size: 12px;p
     font-variant: small-caps;
     text-outline: 1px 0 0 white;
+}
+
+.powerup {
+    z-index: -1;
+}
+
+.powerup .body {
+    left: -12px;
+    width: 24px;
+    text-align: center;
+    font-size: 12px;
+    font-variant: small-caps;
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid black;
 }

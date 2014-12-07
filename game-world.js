@@ -34,6 +34,7 @@
 	this._audioController = new window.AudioController();
 	this._isGodModeEnabled = false;
 	this._floatingTexts = [];
+	this._powerups = [];
     };
 
     GameWorld.prototype.attachTo = function (node) {
@@ -48,6 +49,9 @@
     };
 
     GameWorld.prototype.update = function (tick, input, isGodModeEnabled) {
+	if (this._isGodModeEnabled) {
+	    return;
+	}
 	var self = this;
 	this._tick = tick;
 	this._isGodModeEnabled = isGodModeEnabled;
@@ -110,6 +114,7 @@
 		enemy.drawBloodOntoCanvas(self._backgroundCanvas, {x: 0, y: 0});
 		self._numberOfKills += 1;
 		self._showFloatingText(enemy.position(), "+1 KILL", "#C44");
+		self._addPowerupIfLucky(enemy.position());
 		return false;
 	    } else {
 		return true;
@@ -120,6 +125,23 @@
 
 	    if (floatingText.progress(self._tick) >= 1) {
 		floatingText.detachFrom(self._relativeNode);
+		return false;
+	    } else {
+		return true;
+	    }
+	});
+	this._powerups = this._powerups.filter(function (powerup) {
+	    powerup.update(self._tick);
+
+	    if (self._player.hitTestBox(powerup.box())) {
+		powerup.applyToPlayer(self._player);
+		powerup.detachFrom(self._relativeNode);
+		self._showFloatingText(powerup.position(), powerup.message(), "green");
+		return false;
+	    }
+
+	    if (powerup.progress(self._tick) >= 1) {
+		powerup.detachFrom(self._relativeNode);
 		return false;
 	    } else {
 		return true;
@@ -239,6 +261,17 @@
 	this._floatingTexts.push(floatingText);
     };
 
+    GameWorld.prototype._addPowerupIfLucky = function (position) {
+	if (Math.random() < 0.1) {
+	    var powerup = new window.Powerup(this._tick);
+
+	    powerup.setPosition({x: position.x, y: position.y});
+	    powerup.attachTo(this._relativeNode);
+
+	    this._powerups.push(powerup);
+	}
+    };
+
     GameWorld.prototype.isGameOver = function () {
 	return this._player && this._player.isDead();
     };
@@ -253,6 +286,10 @@
 
     GameWorld.prototype.playerHealth = function () {
 	return this._player.health();
+    };
+
+    GameWorld.prototype.extraPoints = function () {
+	return this._player.collectedPoints();
     };
 
     window.GameWorld = GameWorld;

@@ -50,7 +50,7 @@
 	var gameTime = this._loop.gameTime();
 	var fps = this._loop.fps();
 	var averageFps = this._loop.averageFps();
-	var points = kills + Math.floor(this._loop.gameTime() / 1000);
+	var points = kills + Math.floor(this._loop.gameTime() / 1000) + this._world.extraPoints();
 	var difficulty = this._world.difficulty();
 	var isGodModeEnabled = this._cheatcodeController.isGodModeEnabled();
 

@@ -23,6 +23,7 @@
 	this._relativeNode.appendChild(this._gunNode);
 	this._size = {width: 20, height: 20};
 	this._maxSpeed = 3;
+	this._collectedPoints = 0;
     };
 
     Player.prototype.loseHealth = function () {
@@ -77,6 +78,18 @@
 
 	this.setPosition(position);
 	this._updateHurtCounter();
+    };
+
+    Player.prototype.addHealth = function (health) {
+	this._health += health;
+    };
+
+    Player.prototype.addPoints = function (points) {
+	this._collectedPoints += points;
+    };
+
+    Player.prototype.collectedPoints = function () {
+	return this._collectedPoints;
     };
 
     window.Player = Player;

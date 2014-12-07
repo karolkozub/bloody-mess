@@ -1,7 +1,7 @@
 //
 //  floatingText.js
 //
-//  Created by Karol Kozub on 2014-12-06.
+//  Created by Karol Kozub on 2014-12-07.
 //  Copyright (c) 2014 Karol Kozub. All rights reserved.
 //
 
@@ -28,9 +28,7 @@
     FloatingText.prototype.update = function (tick) {
 	var progress = this.progress(tick);
 	var offsetY = -40 * progress;
-	var opacity = 1;
 
-	this._bodyNode.style.opacity = opacity;
 	this._bodyNode.style.transform = "translateY(" + offsetY + "px)";
     };
 
