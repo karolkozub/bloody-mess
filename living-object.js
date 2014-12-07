@@ -36,15 +36,16 @@
 
     LivingObject.prototype.drawBloodOntoCanvas = function (canvas, velocity) {
 	var context = canvas.getContext("2d");
+	var scale = this._scale || 1;
 
 	context.save();
 
-	for (var i = 0; i < Math.random() * 10; i++) {
+	for (var i = 0; i < Math.round((0.5 + 0.5 * Math.random()) * 10 * scale); i++) {
 	    var position = {
 		x: this.position().x - 15 + Math.random() * 30 + Math.random() * velocity.x,
 		y: this.position().y - 15 + Math.random() * 30 + Math.random() * velocity.y
 	    };
-	    var radius = Math.random() * 4;
+	    var radius = Math.random() * 4 * scale;
 	    var color = "rgb(" + Math.floor(100 + Math.random() * 50) + ", 10, 10)";
 
 	    context.beginPath();
@@ -53,11 +54,11 @@
 		context.arc(position.x, position.y, radius, 0, 2 * Math.PI, true);
 	    } else {
 		context.moveTo(position.x, position.y);
-		context.lineTo(position.x + Math.random() * velocity.x, position.y + Math.random() * velocity.y);
+		context.lineTo(position.x + Math.random() * velocity.x * scale, position.y + Math.random() * velocity.y * scale);
 	    }
 
 	    context.closePath();
-	    context.lineWidth = Math.random() * 3;
+	    context.lineWidth = Math.random() * 3 * scale;
 	    context.fillStyle = color;
 	    context.strokeStyle = color;
 	    context.globalAlpha = 0.5 + 0.5 * Math.random();

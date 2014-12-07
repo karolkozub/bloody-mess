@@ -92,6 +92,7 @@
 	    if (enemy.isDead()) {
 		enemy.detachFrom(self._relativeNode);
 		enemy.drawDeadBodyOntoCanvas(self._backgroundCanvas);
+		enemy.drawBloodOntoCanvas(self._backgroundCanvas, {x: 0, y: 0});
 		self._numberOfKills += 1;
 		return false;
 	    } else {
