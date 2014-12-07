@@ -25,6 +25,10 @@
 	this._averageFpsNode = this._addLabel();
 	this._enemiesNode = this._addLabel();
 	this._difficultyNode = this._addLabel();
+	this._copyrightNode = document.createElement("div");
+	this._copyrightNode.className = "copyright";
+	this._copyrightNode.innerHTML = "Copyright 2014 Karol Kozub";
+	this._relativeNode.appendChild(this._copyrightNode);
     };
 
     StatusDisplay.prototype._addLabel = function () {
