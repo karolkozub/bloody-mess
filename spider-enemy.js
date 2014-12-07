@@ -21,7 +21,7 @@
 	this._legNodes = [];
 	this._baseJointOffsets = [];
 	this._baseTipOffsets = [];
-	for (var i = 0; i < 6; i++) {
+	for (var i = 0; i < 3; i++) {
 	    var angle = Math.PI / 6 + Math.PI / 3 * i;
 	    var radius = this._size.width / 2;
 	    var width = Math.round(20 * this._scale);
@@ -77,7 +77,7 @@
     };
 
     SpiderEnemy.prototype._updateExtraTipOffset = function (extraTipOffset) {
-	for (var i = 0; i < 6; i++) {
+	for (var i = 0; i < 3; i++) {
 	    var multiplier = (this._usingEvenLegs == (i % 2 == 0)) ? 1 : -1;
 	    var radius = this._size.width / 2;
 	    var legNode = this._legNodes[i];
@@ -93,9 +93,9 @@
 	    var angle = Math.PI / 2 - Math.atan2(distance.x, distance.y);
 	    var width = Math.sqrt(distance.x * distance.x + distance.y * distance.y);
 
-	    legNode.style.left = "" + (-width / 2) + "px";
-	    legNode.style.width = "" + width + "px";
-	    legNode.style.transform = "rotateZ(" + angle + "rad) translate(" + (width / 2 + radius) + "px)";
+	    legNode.style.left = "" + -(width + radius) + "px";
+	    legNode.style.width = "" + 2 * (width + radius) + "px";
+	    legNode.style.transform = "rotateZ(" + angle + "rad)";
 	}
     };
 
