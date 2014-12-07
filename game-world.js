@@ -161,7 +161,7 @@
 	this._audioController.playGunSound();
 	this._numberOfBullets -= 1;
 	if (this._numberOfBullets <= 0) {
-	    this._lastReloadTick = this._tick;
+	    this._lastReloadTick = this._isGodModeEnabled ? -Infinity : this._tick;
 	    this._numberOfBullets = this._maxNumberOfBullets;
 	    this._audioController.playReloadSound();
 	}
