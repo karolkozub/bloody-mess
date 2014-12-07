@@ -54,6 +54,10 @@ html, body {
     background-color: #811;
 }
 
+.player.hurt .gun {
+    background-color: black;
+}
+
 .enemy .body {
     left: -10px;
     top: -10px;
