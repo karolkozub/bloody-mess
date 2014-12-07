@@ -12,7 +12,7 @@
 	this._setup();
     };
 
-    Player.prototype = new window.GameObject();
+    Player.prototype = new window.LivingObject();
 
     Player.prototype._setup = function () {
 	window.GameObject.prototype._setup.call(this);
@@ -35,14 +35,6 @@
 
 	this._velocity.x *= slowDownFactor;
 	this._velocity.y *= slowDownFactor;
-    }
-
-    Player.prototype.health = function () {
-	return this._health;
-    };
-
-    Player.prototype.isDead = function () {
-	return this._health <= 0;
     }
 
     Player.prototype.handleInput = function (input) {

@@ -12,7 +12,7 @@
 	this._setup();
     };
 
-    Enemy.prototype = new window.GameObject();
+    Enemy.prototype = new window.LivingObject();
 
     Enemy.prototype._setup = function () {
 	window.GameObject.prototype._setup.call(this);
@@ -40,18 +40,6 @@
 	this._bodyNode.style.height = "" + this._size.height + "px";
 	this._bodyNode.style.borderRadius = "" + (this._size.width / 2) + "px";
     };
-
-    Enemy.prototype.loseHealth = function () {
-	this._health -= 10;
-    };
-
-    Enemy.prototype.health = function () {
-	return this._health;
-    };
-
-    Enemy.prototype.isDead = function () {
-	return this._health <= 0;
-    }
 
     Enemy.prototype.update = function (tick, playerPosition) {
 	this._rotateTowardsPosition(playerPosition);
