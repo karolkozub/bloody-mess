@@ -49,9 +49,6 @@
     };
 
     GameWorld.prototype.update = function (tick, input, isGodModeEnabled) {
-	if (this._isGodModeEnabled) {
-	    return;
-	}
 	var self = this;
 	this._tick = tick;
 	this._isGodModeEnabled = isGodModeEnabled;

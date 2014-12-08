@@ -82,6 +82,7 @@
 	this._killsNodeScale = 0.8 * this._killsNodeScale + 0.2;
 
 	this._timeNode.innerHTML = "Time: " + (statistics.gameTime / 1000).toFixed(1);
+	this._statusNode.style.display = statistics.isGodModeEnabled ? "" : "none";
     };
 
     window.StatusDisplay = StatusDisplay;
