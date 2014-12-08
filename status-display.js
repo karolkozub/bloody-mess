@@ -15,7 +15,7 @@
 	this._relativeNode.className = "relative";
 	this._node.appendChild(this._relativeNode);
 	this._offsetX = 10;
-	this._offsetY = 40;
+	this._offsetY = 45;
 	this._healthBarNode = document.createElement("div");
 	this._healthBarNode.className = "health-bar";
 	this._relativeNode.appendChild(this._healthBarNode);
@@ -25,15 +25,8 @@
 	this._healthLabelNode = document.createElement("div");
 	this._healthLabelNode.className = "health-label";
 	this._healthBarNode.appendChild(this._healthLabelNode);
-
-	this._killsNode = this._addLabel();
-	this._runTimeNode = this._addLabel();
-	this._gameTimeNode = this._addLabel();
 	this._pointsNode = this._addLabel();
-	this._fpsNode = this._addLabel();
-	this._averageFpsNode = this._addLabel();
-	this._enemiesNode = this._addLabel();
-	this._difficultyNode = this._addLabel();
+	this._timeNode = this._addLabel();
 	this._copyrightNode = document.createElement("div");
 	this._copyrightNode.className = "copyright";
 	this._copyrightNode.innerHTML = "Copyright 2014 Karol Kozub";
@@ -43,6 +36,7 @@
 	this._statusNode.innerHTML = "God Mode Enabled";
 	this._statusNode.style.display = "none";
 	this._relativeNode.appendChild(this._statusNode);
+	this._pointsNodeScale = 1;
     };
 
     StatusDisplay.prototype._addLabel = function () {
@@ -51,7 +45,7 @@
 	label.style.left = "" + this._offsetX + "px";
 	label.style.top  = "" + this._offsetY + "px";
 	this._relativeNode.appendChild(label);
-	this._offsetY += 20;
+	this._offsetX += 100;
 	return label;
     };
 
@@ -65,20 +59,19 @@
 
     StatusDisplay.prototype.updateWithGameStatistics = function (statistics) {
 	var healthPercent = "" + Math.floor(statistics.health) + "%";
+	var pointsHTML = "Points: <span>" + statistics.points + "</span>";
+
 	this._healthProgressNode.style.width = healthPercent;
 	this._healthLabelNode.innerHTML = healthPercent;
 
-	this._killsNode.innerHTML = "Kills: " + statistics.kills;
-	this._runTimeNode.innerHTML = "Run Time: " + (statistics.runTime / 1000).toFixed(3);
-	this._gameTimeNode.innerHTML = "Game Time: " + (statistics.gameTime / 1000).toFixed(3);
-	this._pointsNode.innerHTML = "Points: " + statistics.points;
-	this._fpsNode.innerHTML = "FPS: " + statistics.fps;
-	this._averageFpsNode.innerHTML = "Average FPS: " + statistics.averageFps.toFixed(1);
-	this._enemiesNode.innerHTML = "Enemies: " + statistics.enemies;
-	this._difficultyNode.innerHTML = "Difficulty: " + (Math.floor(statistics.difficulty * 10) / 10).toFixed(1);
-	this._statusNode.style.display = statistics.isGodModeEnabled ? "" : "none";
+	if (this._pointsNode.innerHTML !== pointsHTML) {
+	    this._pointsNode.innerHTML = pointsHTML;
+	    this._pointsNodeScale = 1.2;
+	}
 
-	this._fpsNode.className = statistics.fps < 60 ? "warning label" : "label";
+	this._pointsNode.style.transform = "scale(" + this._pointsNodeScale + ", " + this._pointsNodeScale + ")";
+	this._pointsNodeScale = 0.8 * this._pointsNodeScale + 0.2;
+	this._timeNode.innerHTML = "Time: " + (statistics.gameTime / 1000).toFixed(1);
     };
 
     window.StatusDisplay = StatusDisplay;
