@@ -1,6 +1,7 @@
 * {
     margin: 0;
     padding: 0;
+    z-index: 10;
 }
 
 html, body {
@@ -31,11 +32,11 @@ html, body {
 }
 
 .background {
-    z-index: -2;
+    z-index: 8;
 }
 
 .player {
-    z-index: 1;
+    z-index: 11;
 }
 
 .player .body {
@@ -88,7 +89,7 @@ html, body {
     width: 1px;
     height: 1px;
     background-color: black;
-    z-index: 2;
+    z-index: 12;
 }
 
 .crosshair .body {
@@ -102,7 +103,7 @@ html, body {
 
 .input-overlay {
     cursor: none;
-    z-index: 3;
+    z-index: 13;
 }
 
 .gameover-screen {
@@ -113,7 +114,7 @@ html, body {
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.5);
     cursor: default;
-    z-index: 4;
+    z-index: 14;
 }
 
 .gameover-screen .table {
@@ -186,7 +187,7 @@ html, body {
     position: absolute;
     background-color: rgba(255, 255, 255, 0.75);
     font-variant: small-caps;
-    z-index: 1;
+    z-index: 11;
 }
 
 .status-display .status {
@@ -245,7 +246,7 @@ html, body {
     top: -1px;
     height: 2px;
     background-color: black;
-    z-index: -1;
+    z-index: 9;
 }
 
 .floating-text .body {
@@ -258,7 +259,7 @@ html, body {
 }
 
 .powerup {
-    z-index: -1;
+    z-index: 9;
 }
 
 .powerup .body {

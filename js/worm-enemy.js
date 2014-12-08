@@ -38,7 +38,7 @@
 	    partNode.style.width = "" + Math.floor(this._size.width * scale) + "px";
 	    partNode.style.height = "" + Math.floor(this._size.height * scale) + "px";
 	    partNode.style.borderRadius = "" + Math.floor(this._size.width / 2 * scale) + "px";
-	    partNode.style.zIndex = i;
+	    partNode.style.zIndex = 10 + i;
 	}
 	this._currentPart = 0;
     };
