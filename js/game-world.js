@@ -32,6 +32,7 @@
 	this._lastReloadTick = -Infinity;
 	this._numberOfBullets = this._maxNumberOfBullets;
 	this._audioController = new window.AudioController();
+	this._screenshakeController = new window.ScreenshakeController(this._node);
 	this._isGodModeEnabled = false;
 	this._floatingTexts = [];
 	this._powerups = [];
@@ -69,6 +70,7 @@
 		self._player.slowDown();
 		self._player.handleRecoil(recoil);
 		self._player.drawBloodOntoCanvas(self._backgroundCanvas, recoil);
+		self._screenshakeController.shakeScreen(self._tick);
 		if (self._player.isDead()) {
 		    self._audioController.playDeathSound();
 		} else {
@@ -147,6 +149,7 @@
 	});
 	this._addEnemies();
 	this._resizeBackgroundCanvasIfNeeded();
+	this._screenshakeController.update(this._tick);
     };
 
     GameWorld.prototype.size = function () {
