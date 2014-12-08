@@ -10,13 +10,14 @@
 
     var AudioController = function () {
 	this._deathSound = new Audio("death.mp3");
-	this._powerupSound = new Audio("powerup.mp3");
+	this._powerupSounds = [new Audio("powerup.mp3"), new Audio("powerup.mp3"), new Audio("powerup.mp3"), new Audio("powerup.mp3")];
 	this._reloadSound = new Audio("reload.mp3");
 	this._hurtSounds = [new Audio("hurt.mp3"), new Audio("hurt2.mp3"), new Audio("hurt3.mp3")];
 	this._enemyHurtSounds = [];
 	this._gunSounds = [];
 	this._currentGunSound = 0;
 	this._currentEnemyHurtSound = 0;
+	this._currentPowerupSound = 0;
 
 	for (var i = 0; i < 10; i++) {
 	    var gunSound = new Audio("gun.mp3");
@@ -54,7 +55,8 @@
     };
 
     AudioController.prototype.playPowerupSound = function () {
-	this._powerupSound.play();
+	this._powerupSounds[this._currentPowerupSound].play();
+	this._currentPowerupSound = (this._currentPowerupSound + 1) % this._powerupSounds.length;
     };
 
     AudioController.prototype.playReloadSound = function () {
