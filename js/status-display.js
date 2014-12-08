@@ -27,6 +27,7 @@
 	this._healthBarNode.appendChild(this._healthLabelNode);
 	this._pointsNode = this._addLabel();
 	this._timeNode = this._addLabel();
+	this._killsNode = this._addLabel();
 	this._copyrightNode = document.createElement("div");
 	this._copyrightNode.className = "copyright";
 	this._copyrightNode.innerHTML = "Copyright 2014 Karol Kozub";
@@ -37,6 +38,7 @@
 	this._statusNode.style.display = "none";
 	this._relativeNode.appendChild(this._statusNode);
 	this._pointsNodeScale = 1;
+	this._killsNodeScale = 1;
     };
 
     StatusDisplay.prototype._addLabel = function () {
@@ -60,6 +62,7 @@
     StatusDisplay.prototype.updateWithGameStatistics = function (statistics) {
 	var healthPercent = "" + Math.floor(statistics.health) + "%";
 	var pointsHTML = "Points: <span>" + statistics.points + "</span>";
+	var killsHTML = "Kills: <span>" + statistics.kills + "</span>";
 
 	this._healthProgressNode.style.width = healthPercent;
 	this._healthLabelNode.innerHTML = healthPercent;
@@ -68,9 +71,16 @@
 	    this._pointsNode.innerHTML = pointsHTML;
 	    this._pointsNodeScale = 1.2;
 	}
-
 	this._pointsNode.style.transform = "scale(" + this._pointsNodeScale + ", " + this._pointsNodeScale + ")";
 	this._pointsNodeScale = 0.8 * this._pointsNodeScale + 0.2;
+
+	if (this._killsNode.innerHTML !== killsHTML) {
+	    this._killsNode.innerHTML = killsHTML;
+	    this._killsNodeScale = 1.2;
+	}
+	this._killsNode.style.transform = "scale(" + this._killsNodeScale + ", " + this._killsNodeScale + ")";
+	this._killsNodeScale = 0.8 * this._killsNodeScale + 0.2;
+
 	this._timeNode.innerHTML = "Time: " + (statistics.gameTime / 1000).toFixed(1);
     };
 
